@@ -1,0 +1,15 @@
+{
+    "Bot":{
+        "Token": "Bot_Token",
+        "BotID": "Bot_ID",
+        "EmbedColor": "#3498dd",
+        "Prefix": "?", 
+        "OwnersID": ["Owner_ID"]
+    },
+    "Database":{
+        "Hostname": "Hostname",
+        "Tablename": "Tablename",
+        "Username": "Username",
+        "Password": "Password"
+    }
+}

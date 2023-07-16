@@ -1,0 +1,36 @@
+{
+    "name": "Guardian_Discordbot",
+    "version": "0.1",
+    "description": "Guardian Discord Bot ",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LonoxX/Guardian-Discordbot.git"
+    },
+    "bugs": {
+        "url": "https://github.com/LonoxX/Guardian-Discordbot/issues"
+    },
+    "homepage": "https://github.com/LonoxX/Guardian-Discordbot#readme",
+    "scripts": {
+        "dev": "nodemon index.js",
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "LonoxX",
+    "license": "MIT",
+    "dependencies": {
+        "@discordjs/builders": "^1.6.3",
+        "@discordjs/rest": "^1.7.1",
+        "cross-fetch": "^4.0.0",
+        "discord-logs": "^2.2.1",
+        "discord.js": "^14.11.0",
+        "fs": "^0.0.1-security",
+        "humanize-duration": "^3.29.0",
+        "mysql2": "^3.5.1",
+        "node-fetch": "^3.3.1",
+        "sequelize": "^6.32.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}
