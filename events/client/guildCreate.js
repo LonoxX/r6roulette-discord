@@ -15,6 +15,9 @@ module.exports = async (client, guild) => {
         { name: "Website:", value: `[Website](${config.Bot.Website})`, inline: true},
         { name: "Support Server:", value: `[Support Server](${config.Bot.SupportServer})`, inline: true},
         { name: "Vote:", value:`[Vote](${config.Bot.Vote})`, inline: true},
+        { name: '\u200B', value: '\u200B'},
+        { name: "Get a random operator", value:" `/operator`", inline: true},
+        { name: "Get a random challenge", value:" `/getchallenge`", inline: true},
       ])
       .setTimestamp()
       .setFooter({ text: `${client.user.username} `,  iconURL: `${client.user.displayAvatarURL()}`, });
