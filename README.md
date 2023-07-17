@@ -1,39 +1,17 @@
-# Guardian-Discordbot
+# R6 Roulette - Discord Bot
 
 ## About
-# Soon 
+Tom Clancy's Rainbow Six Siege operator randomizer that display a random operator, random gun selection, and random equipment. 
 
-# Features
-✅ Ticket System
-- Ticket-Transcript \
+Do you love playing Rainbow Six: Siege but are tired of always playing the same operators? Then you should definitely try out the Random Rainbow Six: Siege Operator Picker! With this web tool, you can discover a randomly selected operator, complete with weapons and gadgets, with just a click.
+This way, every game with a new operator combination becomes an exciting challenge.
 
-✅ Welcome Message \
-✅ Slash Commands \
-✅ Prefix Commands \
-✅ AuditLogs
 
-# Setup
-1. Install [Node.js](https://nodejs.org/en/download/)
-2. Install [Git](https://git-scm.com/downloads)
-3. Clone the repository
-```bash
-git clone https://github.com/LonoxX/Guardian-Discordbot.git
-```
-4. Install the dependencies
-```bash
-npm install
-```
-5. Rename the `config.example.json` to `config.json` and fill in the values
-6. Start the bot
-```bash
-node index.js
-```
-7. Invite the bot to your server
-```bash
-https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot&permissions=YOUR_PERMISSIONS
-```
-8. Enjoy!
-
+<img src="https://cdn.r6roulette.de/about/Discord_9do0KQ3u9B.png" width="100%">
+<img src="https://cdn.r6roulette.de/about/Discord_IPS2j93JLd.png" width="100%">
+<img src="https://cdn.r6roulette.de/about/Discord_LW3bkIHDSy.png" width="100%">
+<img src="https://cdn.r6roulette.de/about/Discord_tYECP0Jzjx.png" width="100%">
+<img src="https://cdn.r6roulette.de/about/Discord_XJWXM5eEuk.png" width="100%">
 
 
 
