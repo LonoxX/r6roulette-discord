@@ -1,5 +1,6 @@
 const config = require("../../config.json");
 const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { addGuild,setLogChannel} = require('../../handlers/settings.js');
 module.exports = async (client, guild) => {
   addGuild(guild);
@@ -22,4 +23,17 @@ module.exports = async (client, guild) => {
       .setTimestamp()
       .setFooter({ text: `${client.user.username} `,  iconURL: `${client.user.displayAvatarURL()}`, });
       channel.send({ embeds: [embed] })
+
+      const READY = client.channels.cache.get(config.Bot.LogChannel);
+      const NEWembed = new EmbedBuilder()
+      .setTitle("Guild Joined")
+      .setColor(config.Bot.EmbedColor)
+      .setThumbnail(guild.iconURL({ dynamic: true }))
+      .setAuthor({  name: guild.name, iconURL: guild.iconURL({ dynamic: true }),  })
+      .addFields([
+        { name: "Guild Name:", value: guild.name },
+      ])
+      .setTimestamp()
+      .setFooter({  text: `${guild.name}`, iconURL: guild.iconURL({ dynamic: true }),  });
+      READY.send({ embeds: [NEWembed] });
 };

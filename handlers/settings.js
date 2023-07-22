@@ -36,20 +36,7 @@ async function addGuild(guild) {
       membercount: guild.memberCount,
       created_at: new Date(),
     });
-    var URL = `https://discordapp.com/api/webhooks/${config.Server.webhookid}/${config.Server.webhooktoken}`;
-    fetch(URL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        content: `Neuer Server **${guild.name}** - User **${guild.memberCount}**`,
-        username: "R6 Roulette",
-        avatar_url: "https://cdn.r6roulette.de/attacker/Ace.png"
-      })
-    })
-    .then(response => {
-    })
-    .catch(err => console.error(err));
-    
+    console.log(`[Database] Added Guild (${guild.id}) to the database`);
   }
 }
 
@@ -66,19 +53,6 @@ async function removeGuild(guild) {
       }
     });
     console.log(`[Database] Removed Guild (${guild.id}) from the database`);
-    var URL = `https://discordapp.com/api/webhooks/${config.Server.webhookid}/${config.Server.webhooktoken}`;
-    fetch(URL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        content: `Und weg ist er **${guild.name}**`,
-        username: "R6 Roulette",
-        avatar_url: "https://cdn.r6roulette.de/defender/Jager.png"
-      })
-    })
-    .then(response => {
-    })
-    .catch(err => console.error(err));
   }
 }
 

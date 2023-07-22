@@ -35,7 +35,7 @@ module.exports = {
     }
 
     try {
-      const response = await fetch(`https://api.r6roulette.de/role/${operatorType}`);
+      const response = await fetch(`https://api.r6roulette.de/role/${operatorType}?api_key=${config.Bot.Apikey}`);
       const data = await response.json();
       const operator = getRandomOperator(data);
       const embed = createOperatorEmbed(operator);
@@ -97,7 +97,7 @@ module.exports = {
                 { name: 'Attachment', value: operator.primaryAttachment , inline: true},
                 { name: 'Grip', value: operator.primaryGrip , inline: true},
                 { name: 'Scope', value: operator.primaryScope , inline: true},
-                { name: 'Scope', value: operator.primaryScope , inline: true},
+                { name: '\u200B', value: '\u200B'},
                 { name: 'Secondary Weapon', value: operator.secondaryWeapon},
                 { name: 'Attachment', value: operator.secondaryAttachment , inline: true},
                 { name: 'Grip', value: operator.secondaryGrip , inline: true},

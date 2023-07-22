@@ -3,7 +3,7 @@ const db = require("../../handlers/database.js");
 const SGuilds = require("../../handlers/guilds.js");
 const Activity = require("../../handlers/activity.js");
 const { addGuild , UpdateMemberCount  } = require('../../handlers/settings.js');
-const { ActivityType } = require("discord.js");
+const { ActivityType ,EmbedBuilder } = require("discord.js");
 
 module.exports = async (client) => {
   setInterval(() => {

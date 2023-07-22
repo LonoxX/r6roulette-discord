@@ -9,7 +9,7 @@ module.exports = {
   timeout: 3000,
   run: async (interaction, client) => {
     try {
-      const challengeResponse = await fetch('https://api.r6roulette.de/challenges');
+      const challengeResponse = await fetch(`https://api.r6roulette.de/challenges?api_key=${config.Bot.Apikey}`);
       const challengeData = await challengeResponse.json();
       const challenge = getRandomChallenge(challengeData);
       const embed = createOperatorEmbed(challenge);
@@ -31,7 +31,7 @@ module.exports = {
           { name: '🇩🇪 Challenge Title', value: challenge.title_german, inline: true },
           { name: 'Challenge Description', value: challenge.description_german, inline: true },
           { name: '\u200B', value: '\u200B'},
-          { name: '🇬🇧 Challenge Title', value: challenge.title_english, inline: true },
+          { name: '🇺🇸 Challenge Title', value: challenge.title_english, inline: true },
           { name: 'Challenge Description', value: challenge.description_english, inline: true }
         )
         .setTimestamp()

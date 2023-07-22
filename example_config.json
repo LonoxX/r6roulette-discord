@@ -4,7 +4,9 @@
         "BotID": "Bot_ID",
         "EmbedColor": "#3498dd",
         "Prefix": "?", 
-        "OwnersID": ["Owner_ID"]
+        "OwnersID": ["Owner_ID"],
+        "LogChannel": "Channel_ID",
+        "Apikey": "request at https://pnnet.dev/discord"
     },
     "Database":{
         "Hostname": "Hostname",
