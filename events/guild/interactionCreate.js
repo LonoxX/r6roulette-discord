@@ -1,38 +1,46 @@
 const Timeout = new Set();
 const config = require("../../config.json");
-const db = require("../../handlers/database");
-const SGuilds = require("../../handlers/guilds.js");
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
-const { fetchOperatorData, createOperatorEmbed , getRandomOperator } = require('../../handlers/settings');
+const { EmbedBuilder} = require("discord.js");
+const { fetchOperatorData, createOperatorEmbed , getRandomOperator ,fetchChallengeData,getRandomChallenge ,createChallengeEmbed} = require('../../handlers/settings');
 
 
 module.exports = async (client, interaction) => {
-
-  const guild = interaction.guild;
-  const guildData = await SGuilds.findOne({ where: { guildId: guild.id } });
-
-  // Ticket Erstellen
-  if (interaction.customId === "R6RouletteAttack") {
-    try {
-      const data = await fetchOperatorData("attacker");
-    const operator = getRandomOperator(data);
-    const response = createOperatorEmbed(operator, interaction, client); // Get the response object
-    interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
-    } catch (error) {
-      console.error('Error fetching operator:', error);
-      interaction.reply({ content: 'An error occurred.', ephemeral: true });
-    }
-  }
-  if (interaction.customId === "R6RouletteDefend") {
-    try {
-      const data = await fetchOperatorData("defender");
-    const operator = getRandomOperator(data);
-    const response = createOperatorEmbed(operator, interaction, client); // Get the response object
-    interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
-    } catch (error) {
-      console.error('Error fetching operator:', error);
-      interaction.reply({ content: 'An error occurred.', ephemeral: true });
-    }
+  switch (interaction.customId) {
+    case "R6RouletteAttack":
+      try {
+        const data = await fetchOperatorData("attacker");
+      const operator = getRandomOperator(data);
+      const response = createOperatorEmbed(operator, interaction, client);
+      interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
+      } catch (error) {
+        console.error('Error fetching operator:', error);
+        interaction.reply({ content: 'An error occurred.', ephemeral: true });
+      }
+      break;
+    case "R6RouletteDefend":
+      try {
+        const data = await fetchOperatorData("defender");
+      const operator = getRandomOperator(data);
+      const response = createOperatorEmbed(operator, interaction, client);
+      interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
+      } catch (error) {
+        console.error('Error fetching operator:', error);
+        interaction.reply({ content: 'An error occurred.', ephemeral: true });
+      }
+    break
+    case "R6RouletteChallenge":
+      try {
+        const challengeResponse = await fetchChallengeData();
+        const challenge = getRandomChallenge(challengeResponse);
+        const response = createChallengeEmbed(challenge, interaction, client); // Get the response object
+        interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
+      } catch (error) {
+        console.error('Error fetching challenge:', error);
+        interaction.reply({ content: 'An error occurred.', ephemeral: true });
+      }
+      break;
+      default:
+      break;
   }
 
   

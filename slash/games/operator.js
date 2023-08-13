@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-
 const { fetchOperatorData, createOperatorEmbed , getRandomOperator } = require('../../handlers/settings');
 
 module.exports = {
