@@ -21,7 +21,7 @@ module.exports = async (client) => {
           activities.push({ text: message.text });
         });
         activity = activities[Math.floor(Math.random() * activities.length)];
-        client.user.setActivity(activity.text, { type: ActivityType.Playing});
+        client.user.setActivity({ type: ActivityType.Custom, name: "irrelevant", state: activity.text, })
       })
       .catch(err => {
         console.log(err);
