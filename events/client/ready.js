@@ -2,13 +2,13 @@ const config = require("../../config.json");
 const db = require("../../handlers/database.js");
 const SGuilds = require("../../handlers/guilds.js");
 const Activity = require("../../handlers/activity.js");
-const { addGuild , UpdateMemberCount  } = require('../../handlers/settings.js');
+const { addGuild , UpdateMemberCount ,UpdateServerCount } = require('../../handlers/settings.js');
 const { ActivityType ,EmbedBuilder } = require("discord.js");
 
 module.exports = async (client) => {
   setInterval(() => {
     const activities = [
-      { text: "" + Math.ceil(client.guilds.cache.size) + " Guilds." },
+      { text: "🚀" + Math.ceil(client.guilds.cache.size) + " Guilds" },
     ];
     let activity;
     db.authenticate()
@@ -34,6 +34,9 @@ module.exports = async (client) => {
       UpdateMemberCount(guild);
     });
   }, 3600000); // 3600000 Millisekunden = 1 Hour
+  setInterval(() => {
+    UpdateServerCount(client);
+  }, 10800000); // 10800000 Millisekunden = 3 Hours
     
 console.log(`[Discord API] Logged in as ${client.user.tag}`);
 db.authenticate()

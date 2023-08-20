@@ -2,6 +2,7 @@ const SGuilds = require("./guilds.js");
 const config = require("../config.json");
 const { EmbedBuilder,ActionRowBuilder, ButtonBuilder ,ButtonStyle } = require("discord.js");
 const fetch = require('cross-fetch');
+const { AutoPoster } = require('topgg-autoposter')
 const { getRandomColor } = require("./colorlist.js");
 
 function UpdateMemberCount(guild) {
@@ -192,6 +193,29 @@ function createChallengeEmbed(challenge,interaction, client) {
     return { embeds: [embed], components: [row] };
 }
 
+async function UpdateServerCount(client) {
+  const poster = AutoPoster(config.Bot.topgg, client)
+  poster.on('posted', (stats) => {
+    const topggupdate = client.channels.cache.get(config.Bot.LogChannel);
+    const NEWembed = new EmbedBuilder()
+    .setTitle("Server Count Update on Top.gg")
+    .setColor(getRandomColor().hex)
+    .setThumbnail(client.user.displayAvatarURL())
+    .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL({ dynamic: true }), })
+    .addFields([
+      { name: 'Guilds', value: `${stats.serverCount}`, inline: true },
+      { name: 'Shards', value: `${stats.shardCount}`, inline: true },
+    ])
+    .setTimestamp()
+    .setFooter({ text: `${client.user.username} `,  iconURL: `${client.user.displayAvatarURL()}`, });
+    topggupdate.send({ embeds: [NEWembed] });
+
+  })
+  poster.on('error', (e) => {
+    console.warn('Error while posting stats to top.gg: ' + e)
+  })
+}
+
 
 
 module.exports = {
@@ -209,5 +233,6 @@ module.exports = {
   createOperatorEmbed,
   fetchChallengeData,
   getRandomChallenge,
-  createChallengeEmbed
+  createChallengeEmbed,
+  UpdateServerCount
 };

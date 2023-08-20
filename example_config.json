@@ -6,7 +6,8 @@
         "Prefix": "?", 
         "OwnersID": ["Owner_ID"],
         "LogChannel": "Channel_ID",
-        "Apikey": "request at https://pnnet.dev/discord"
+        "Apikey": "request at https://pnnet.dev/discord",
+        "topgg" : "top.gg token"
     },
     "Database":{
         "Hostname": "Hostname",
