@@ -30,12 +30,12 @@ module.exports = async (client) => {
   }, 10000);
 
   setInterval(() => {
-    UpdateServerCount(client);
     client.guilds.cache.forEach(guild => {
       UpdateMemberCount(guild);
     });
   }, 10800000); // 3600000 Millisekunden = 1 Hour
     
+UpdateServerCount(client);
 console.log(`[Discord API] Logged in as ${client.user.tag}`);
 db.authenticate()
   .then(() => {

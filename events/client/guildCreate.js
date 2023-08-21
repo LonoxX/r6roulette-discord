@@ -1,9 +1,10 @@
 const config = require("../../config.json");
 const Discord = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
-const { addGuild,setLogChannel} = require('../../handlers/settings.js');
+const { addGuild, UpdateServerCount} = require('../../handlers/settings.js');
 module.exports = async (client, guild) => {
-  addGuild(guild);
+  addGuild(guild);  
+  UpdateServerCount(client);
   console.log(`${client.user.tag} has joined a new server: ${guild.name} (${guild.id})`);
   const channel = client.channels.cache.get(guild.systemChannelId)
   const embed = new Discord.EmbedBuilder()
