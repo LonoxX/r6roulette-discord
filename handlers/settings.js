@@ -130,7 +130,7 @@ function createOperatorEmbed(operator, interaction, client) {
       { name: 'Gadget', value: operator.gadget, inline: true }
     ])
     .setTimestamp()
-    .setFooter({ text: `${client.user.username} `, iconURL: `${client.user.displayAvatarURL()}` });
+    .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
 
   const row = new ActionRowBuilder()
   .addComponents(
@@ -178,7 +178,7 @@ function createChallengeEmbed(challenge,interaction, client) {
       { name: 'Challenge Description', value: challenge.description_english, inline: true }
     )
     .setTimestamp()
-    .setFooter({ text: `${client.user.username} `,  iconURL: `${client.user.displayAvatarURL()}`, });
+    .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
     
     // add a button to get a new challenge
     const row = new ActionRowBuilder()
@@ -196,23 +196,10 @@ function createChallengeEmbed(challenge,interaction, client) {
 async function UpdateServerCount(client) {
   const poster = AutoPoster(config.Bot.topgg, client)
   poster.on('posted', (stats) => {
-    const topggupdate = client.channels.cache.get(config.Bot.LogChannel);
-    const NEWembed = new EmbedBuilder()
-    .setTitle("Server Count Update on Top.gg")
-    .setColor(getRandomColor().hex)
-    .setThumbnail(client.user.displayAvatarURL())
-    .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL({ dynamic: true }), })
-    .addFields([
-      { name: 'Guilds', value: `${stats.serverCount}`, inline: true },
-      { name: 'Shards', value: `${stats.shardCount}`, inline: true },
-    ])
-    .setTimestamp()
-    .setFooter({ text: `${client.user.username} `,  iconURL: `${client.user.displayAvatarURL()}`, });
-    topggupdate.send({ embeds: [NEWembed] });
-
+    console.log(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`)
   })
   poster.on('error', (e) => {
-    console.warn('Error while posting stats to top.gg: ' + e)
+    console.warn('[Top.gg] Error posting stats to top.gg:', e)
   })
 }
 

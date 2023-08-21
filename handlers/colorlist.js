@@ -25,7 +25,6 @@ const colorList = [
   { name: "White", hex: "#FFFFFF" },
   { name: "Greyple", hex: "#99AAb5" },
   { name: "Black", hex: "#23272A" },
-  { name: "DarkButNotBlack", hex: "#2C2F33" },
   { name: "Blurple", hex: "#5865F2" },
   { name: "Fuchsia", hex: "#EB459E" },
 ];
