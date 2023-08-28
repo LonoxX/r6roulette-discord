@@ -8,9 +8,9 @@ module.exports = async (client, interaction) => {
   switch (interaction.customId) {
     case "R6RouletteAttack":
       try {
-        const data = await fetchOperatorData("attacker");
+      const data = await fetchOperatorData("attacker");
       const operator = getRandomOperator(data);
-      const response = createOperatorEmbed(operator, interaction, client);
+      const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
         console.error('Error fetching operator:', error);
@@ -21,7 +21,7 @@ module.exports = async (client, interaction) => {
       try {
         const data = await fetchOperatorData("defender");
       const operator = getRandomOperator(data);
-      const response = createOperatorEmbed(operator, interaction, client);
+      const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
         console.error('Error fetching operator:', error);

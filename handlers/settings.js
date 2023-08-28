@@ -16,16 +16,6 @@ function UpdateMemberCount(guild) {
   console.log(`[Database] Update Member for Guild ${guild.name} (${guild.id})`);
 }
 
-function setLogChannel(guildid, channelId) {
-  let log = SGuilds.update({
-    logchannel: channelId,
-  }, {
-    where: {
-      guildId: guildid,
-    },
-  });
-}
-
 async function addGuild(guild) {
   const server = await SGuilds.findOne({
     where: {
@@ -58,6 +48,16 @@ async function removeGuild(guild) {
     });
     console.log(`[Database] Removed Guild (${guild.id}) from the database`);
   }
+}
+
+async function UpdateServerCount(client) {
+  const poster = AutoPoster(config.Bot.topgg, client)
+  poster.on('posted', (stats) => {
+    console.log(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`)
+  })
+  poster.on('error', (e) => {
+    console.warn('[Top.gg] Error posting stats to top.gg:', e)
+  })
 }
 
 async function fetchOperatorData(operatorType) {
@@ -111,12 +111,13 @@ function getRandomOperator(operators) {
   };
 }
 
-function createOperatorEmbed(operator, interaction, client) {
+async function createOperatorEmbed(operator, interaction, client) {
+  const Changelog = await fetchChangelogData();
   const embed = new EmbedBuilder()
     .setTitle(operator.name)
     .setThumbnail(operator.badge)
     .setColor(getRandomColor().hex)
-    .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+    .setAuthor({ name: operator.name, iconURL: operator.badge })
     .addFields([
       { name: 'Primary Weapon', value: operator.primaryWeapon },
       { name: 'Attachment', value: operator.primaryAttachment, inline: true },
@@ -130,7 +131,7 @@ function createOperatorEmbed(operator, interaction, client) {
       { name: 'Gadget', value: operator.gadget, inline: true }
     ])
     .setTimestamp()
-    .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
+    .setFooter({ text: `Ubisoft patch ready: ${Changelog[0].Upatch}`,  iconURL: `${client.user.displayAvatarURL()}`, });
 
   const row = new ActionRowBuilder()
   .addComponents(
@@ -180,7 +181,6 @@ function createChallengeEmbed(challenge,interaction, client) {
     .setTimestamp()
     .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
     
-    // add a button to get a new challenge
     const row = new ActionRowBuilder()
     .addComponents(
         new ButtonBuilder()
@@ -188,28 +188,48 @@ function createChallengeEmbed(challenge,interaction, client) {
             .setStyle(ButtonStyle.Success)
             .setCustomId('R6RouletteChallenge'),
     )
-
-  
     return { embeds: [embed], components: [row] };
 }
 
-async function UpdateServerCount(client) {
-  const poster = AutoPoster(config.Bot.topgg, client)
-  poster.on('posted', (stats) => {
-    console.log(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`)
-  })
-  poster.on('error', (e) => {
-    console.warn('[Top.gg] Error posting stats to top.gg:', e)
-  })
+async function fetchChangelogData() {
+  const response = await fetch(`https://api.r6roulette.de/changelog/bot/latest?api_key=${config.Bot.Apikey}`);
+  const data = await response.json();
+  return data;
+}
+
+async function getLatestChangelog(interaction, client) {
+  try {
+    const data = await fetchChangelogData();
+    const type = ['attacker', 'defender'];
+    const operatorType = type[Math.floor(Math.random() * type.length)];
+    const operator = await fetchOperatorData(operatorType);
+    const output = getRandomOperator(operator);
+
+    const embed = new EmbedBuilder()
+      .setTitle(`Changelog \`${data[0].version}\``)
+      .setColor(getRandomColor().hex)
+      .setThumbnail(output.badge)
+      .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+      .addFields([
+        { name: 'Changes', value: data[0].message},
+        { name: 'Ubisoft patch ready', value: data[0].Upatch, inline: true }
+      ])
+      .setFooter({ text: `Created at ${data[0].created_at}`, iconURL: interaction.user.displayAvatarURL() });
+
+    return embed;
+  } catch (error) {
+    console.error('Error fetching changelog:', error);
+    return null;
+  }
 }
 
 
 
 module.exports = {
   UpdateMemberCount,
-  setLogChannel,
   addGuild,
   removeGuild,
+  UpdateServerCount,
   fetchOperatorData,
   getRandomFromArray,
   getRandomWeapon,
@@ -221,5 +241,5 @@ module.exports = {
   fetchChallengeData,
   getRandomChallenge,
   createChallengeEmbed,
-  UpdateServerCount
+  getLatestChangelog
 };
