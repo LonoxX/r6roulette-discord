@@ -12,7 +12,7 @@ module.exports = {
   run: async (interaction, client) => {
     try {
       const changelogEmbed = await getLatestChangelog(interaction, client);
-      interaction.reply({ embeds: [changelogEmbed], ephemeral: true });
+      interaction.reply({ embeds: [changelogEmbed]});
     } catch (error) {
       console.error('Error fetching changelog:', error);
       interaction.reply({ content: 'Error fetching changelog.', ephemeral: true });
