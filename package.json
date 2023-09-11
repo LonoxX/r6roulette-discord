@@ -23,12 +23,13 @@
         "@discordjs/rest": "^2.0.1",
         "cross-fetch": "^4.0.0",
         "discord-logs": "^2.2.1",
+        "discord-pagination-advanced": "^1.1.9",
         "discord.js": "^14.13.0",
         "fs": "^0.0.1-security",
         "humanize-duration": "^3.29.0",
-        "mysql2": "^3.6.0",
+        "mysql2": "^3.6.1",
         "node-fetch": "^3.3.2",
-        "sequelize": "^6.32.1",
+        "sequelize": "^6.33.0",
         "topgg-autoposter": "^2.0.1"
     },
     "devDependencies": {

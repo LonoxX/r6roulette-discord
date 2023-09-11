@@ -131,7 +131,7 @@ async function createOperatorEmbed(operator, interaction, client) {
       { name: 'Gadget', value: operator.gadget, inline: true }
     ])
     .setTimestamp()
-    .setFooter({ text: `Ubisoft patch ready: ${Changelog[0].Upatch}`,  iconURL: `${client.user.displayAvatarURL()}`, });
+    .setFooter({ text: `Ubisoft Patch Support: ${Changelog[0].Upatch}`,  iconURL: `${client.user.displayAvatarURL()}`, });
 
   const row = new ActionRowBuilder()
   .addComponents(
@@ -212,7 +212,7 @@ async function getLatestChangelog(interaction, client) {
       .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
       .addFields([
         { name: 'Changes', value: data[0].message},
-        { name: 'Ubisoft patch ready', value: data[0].Upatch, inline: true }
+        { name: 'Ubisoft Patch Support', value: data[0].Upatch, inline: true }
       ])
       .setFooter({ text: `Created at ${data[0].created_at}`, iconURL: interaction.user.displayAvatarURL() });
 

@@ -29,7 +29,7 @@ module.exports = {
       const operatorType = interaction.options.getString('operator_type');
       const data = await fetchOperatorData(operatorType);
       const operator = getRandomOperator(data);
-      const response = createOperatorEmbed(operator, interaction, client);
+      const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
     } catch (error) {
       console.error('Error fetching operator:', error);
