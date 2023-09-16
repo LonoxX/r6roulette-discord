@@ -27,14 +27,14 @@ module.exports = async (client, guild) => {
 
       const READY = client.channels.cache.get(config.Bot.LogChannel);
       const NEWembed = new EmbedBuilder()
-      .setTitle("Guild Joined")
-      .setColor(config.Bot.EmbedColor)
-      .setThumbnail(guild.iconURL({ dynamic: true }))
-      .setAuthor({  name: guild.name, iconURL: guild.iconURL({ dynamic: true }),  })
-      .addFields([
-        { name: "Guild Name:", value: guild.name },
-      ])
-      .setTimestamp()
-      .setFooter({  text: `${guild.name}`, iconURL: guild.iconURL({ dynamic: true }),  });
+        .setTitle("Guild Joined")
+        .setColor(config.Bot.EmbedColor)
+        .setThumbnail(guild.iconURL({ dynamic: true }))
+        .setAuthor({  name: guild.name, iconURL: guild.iconURL({ dynamic: true }),  })
+        .addFields([
+          { name: "Guild Name:", value: guild.name },
+        ])
+        .setTimestamp()
+        .setFooter({  text: `${guild.name}`, iconURL: guild.iconURL({ dynamic: true }),  });
       READY.send({ embeds: [NEWembed] });
 };

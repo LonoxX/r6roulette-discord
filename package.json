@@ -1,34 +1,29 @@
 {
-    "name": "Guardian_Discordbot",
+    "name": "r6roulette_discord",
     "version": "0.1",
-    "description": "Guardian Discord Bot ",
+    "description": "R6 Roulette Discord Bot",
     "main": "index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/LonoxX/Guardian-Discordbot.git"
+        "url": "git+https://github.com/LonoxX/r6roulette-discord.git"
     },
     "bugs": {
-        "url": "https://github.com/LonoxX/Guardian-Discordbot/issues"
+        "url": "https://github.com/LonoxX/r6roulette-discord/issues"
     },
-    "homepage": "https://github.com/LonoxX/Guardian-Discordbot#readme",
+    "homepage": "https://github.com/LonoxX/r6roulette-discord#readme",
     "scripts": {
         "dev": "nodemon index.js",
         "start": "node index.js"
     },
-    "keywords": [],
+    "keywords": ["fun,games,random,rainbow,random-generation,r6s,rainbow-six-siege,r6-operatoricons, LonoxX, r6roulette, panda-network,operator randomizer,random operator,random gun selection,random equipment"],
     "author": "LonoxX",
-    "license": "MIT",
+    "license": "GPL-3.0 license",
     "dependencies": {
+        "discord.js": "^14.13.0",
         "@discordjs/builders": "^1.6.5",
         "@discordjs/rest": "^2.0.1",
         "cross-fetch": "^4.0.0",
-        "discord-logs": "^2.2.1",
-        "discord-pagination-advanced": "^1.1.9",
-        "discord.js": "^14.13.0",
         "fs": "^0.0.1-security",
-        "humanize-duration": "^3.29.0",
-        "mysql2": "^3.6.1",
-        "node-fetch": "^3.3.2",
         "sequelize": "^6.33.0",
         "topgg-autoposter": "^2.0.1"
     },

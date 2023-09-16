@@ -18,8 +18,6 @@ const client = new Client({
   partials: [Partials.Channel, Partials.Message, Partials.GuildMember],
 });
 const config = require("./config.json");
-const logs = require('discord-logs');
-logs(client);
 client.commands = new Discord.Collection();
 client.slash = new Discord.Collection();
 
