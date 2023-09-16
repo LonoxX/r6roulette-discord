@@ -128,7 +128,9 @@ async function createOperatorEmbed(operator, interaction, client) {
       { name: 'Attachment', value: operator.secondaryAttachment, inline: true },
       { name: 'Grip', value: operator.secondaryGrip, inline: true },
       { name: 'Scope', value: operator.secondaryScope, inline: true },
-      { name: 'Gadget', value: operator.gadget, inline: true }
+      { name: 'Gadget', value: operator.gadget, inline: true },
+      { name: '\u200B', value: '\u200B' },
+      { name: 'Requested by', value: interaction.user.username }
     ])
     .setTimestamp()
     .setFooter({ text: `Ubisoft Patch Support: ${Changelog[0].Upatch}`,  iconURL: `${client.user.displayAvatarURL()}`, });
@@ -188,6 +190,12 @@ function createChallengeEmbed(challenge,interaction, client) {
             .setStyle(ButtonStyle.Success)
             .setCustomId('R6RouletteChallenge'),
     )
+    .addComponents(
+      new ButtonBuilder()
+          .setLabel('Request a Challenge')
+          .setStyle(ButtonStyle.Link)
+          .setURL('https://request.r6roulette.de'),
+  )
     return { embeds: [embed], components: [row] };
 }
 
