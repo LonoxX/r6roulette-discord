@@ -272,5 +272,6 @@ module.exports = {
   getRandomChallenge,
   createChallengeEmbed,
   getLatestChangelog,
+  fetchChangelogData,
   getCommandinfo,
 };

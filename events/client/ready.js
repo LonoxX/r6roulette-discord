@@ -2,13 +2,17 @@ const config = require("../../config.json");
 const db = require("../../handlers/database.js");
 const SGuilds = require("../../handlers/guilds.js");
 const Activity = require("../../handlers/activity.js");
-const { addGuild , UpdateMemberCount ,UpdateServerCount } = require('../../handlers/settings.js');
+const { addGuild ,UpdateMemberCount ,UpdateServerCount ,fetchChangelogData} = require('../../handlers/settings.js');
 const { ActivityType ,EmbedBuilder } = require("discord.js");
 
 module.exports = async (client) => {
+  const data = await fetchChangelogData();
+  const version = data[0].version;
   setInterval(() => {
     const activities = [
       { text: "🚀" + Math.ceil(client.guilds.cache.size) + " Guilds" },
+      { text: "🤖 V " + version },
+      { text: "❔ /help" },
     ];
     let activity;
     db.authenticate()
