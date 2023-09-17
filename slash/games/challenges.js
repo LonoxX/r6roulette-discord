@@ -8,6 +8,8 @@ module.exports = {
   name: "getchallenge",
   description: 'Generates a random challenge',
   timeout: 3000,
+  category: "games",
+  usage: "/getchallenge",
   run: async (interaction, client) => {
     try {
       const challengeResponse = await fetchChallengeData();

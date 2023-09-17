@@ -7,6 +7,8 @@ module.exports = {
   name: "invite",
   description: 'Would you like invite me to your server?',
   timeout: 3000,
+  category: "misc",
+  usage: "/invite",
   run: async (interaction, client) => {
     try {
       const embed = new EmbedBuilder()

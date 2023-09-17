@@ -9,6 +9,8 @@ module.exports = {
   name: "changelog",
   description: 'Shows the latest changelog for the bot.',
   timeout: 3000,
+  category: "misc",
+  usage: "/changelog",
   run: async (interaction, client) => {
     try {
       const changelogEmbed = await getLatestChangelog(interaction, client);

@@ -5,6 +5,8 @@ module.exports = {
   name: "operator",
   description: 'Generates a random operator',
   timeout: 3000,
+  category: "games",
+  usage: "/operator <attacker/defender>",
   options: [
     {
       name: 'operator_type',

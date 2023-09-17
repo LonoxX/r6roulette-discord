@@ -1,6 +1,6 @@
 const SGuilds = require("./guilds.js");
 const config = require("../config.json");
-const { EmbedBuilder,ActionRowBuilder, ButtonBuilder ,ButtonStyle } = require("discord.js");
+const { EmbedBuilder ,ActionRowBuilder , ButtonBuilder ,ButtonStyle ,codeBlock } = require("discord.js");
 const fetch = require('cross-fetch');
 const { AutoPoster } = require('topgg-autoposter')
 const { getRandomColor } = require("./colorlist.js");
@@ -232,6 +232,28 @@ async function getLatestChangelog(interaction, client) {
 }
 
 
+async function getCommandinfo(interaction, client) {
+  
+  const query = interaction.values[0];
+  const command = client.slash.get(query.toLowerCase()) || client.slash.find((cmd) => cmd.aliases && cmd.aliases.includes(query.toLowerCase()));
+
+  const embed = new EmbedBuilder()
+    .setTitle(`❔ Help for ${command.name}`)
+    .addFields([
+      { name: "Name", value: codeBlock(command.name), inline: true, },
+      { name: "Usage", value: codeBlock(command.usage), inline: true, },
+      { name: "Description", value: codeBlock(command.description), },
+      { name: "Cooldown", value: codeBlock(`${command.timeout / 1000} seconds`), inline: true, },
+      { name: "Category", value: codeBlock(command.category), inline: true, },
+    ])
+    .setColor(getRandomColor().hex)
+    .setTimestamp()
+    .setFooter({ text: `${client.user.username} `, iconURL: `${client.user.displayAvatarURL()}`, });
+  await interaction.reply({ content: `❔ Help for ${command.name}`, embeds: [embed] , ephemeral: true});
+}
+
+
+
 
 module.exports = {
   UpdateMemberCount,
@@ -249,5 +271,6 @@ module.exports = {
   fetchChallengeData,
   getRandomChallenge,
   createChallengeEmbed,
-  getLatestChangelog
+  getLatestChangelog,
+  getCommandinfo,
 };

@@ -1,8 +1,7 @@
 const Timeout = new Set();
 const config = require("../../config.json");
-const { EmbedBuilder} = require("discord.js");
-const { fetchOperatorData, createOperatorEmbed , getRandomOperator ,fetchChallengeData,getRandomChallenge ,createChallengeEmbed} = require('../../handlers/settings');
-
+const { EmbedBuilder,codeBlock} = require("discord.js");
+const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo} = require('../../handlers/settings');
 
 module.exports = async (client, interaction) => {
   switch (interaction.customId) {
@@ -39,6 +38,14 @@ module.exports = async (client, interaction) => {
         interaction.reply({ content: 'An error occurred.', ephemeral: true });
       }
       break;
+      case "6roulettehelp":
+      try {
+        getCommandinfo(interaction, client);
+      } catch (error) {
+        console.error('error:', error);
+      }
+      break;
+
       default:
       break;
   }
