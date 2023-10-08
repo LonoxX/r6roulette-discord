@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { fetchOperatorData, createOperatorEmbed , getRandomOperator } = require('../../handlers/settings');
-
+const getLogger = require("../../handlers/logs.js");
 module.exports = {
   name: "operator",
   description: 'Generates a random operator',
@@ -34,7 +34,7 @@ module.exports = {
       const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
     } catch (error) {
-      console.error('Error fetching operator:', error);
+      getLogger.error('Error fetching operator:', error);
       interaction.reply({ content: 'An error occurred.', ephemeral: true });
     }
   }

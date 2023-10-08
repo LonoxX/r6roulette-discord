@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { ActionRowBuilder, StringSelectMenuBuilder,ApplicationCommandOptionType, EmbedBuilder, codeBlock} = require("discord.js");
 const { getRandomColor } = require("../../handlers/colorlist.js");
+const getLogger = require("../../handlers/logs.js")
 module.exports = {
   name: "help",
   description: "❔ Display a list of all available commands",
@@ -65,7 +66,7 @@ module.exports = {
       await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
     }
     } catch (err) {
-     console.log(err);
+      getLogger.error(err);
     }
    },
   };

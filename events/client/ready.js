@@ -4,7 +4,7 @@ const SGuilds = require("../../handlers/guilds.js");
 const Activity = require("../../handlers/activity.js");
 const { addGuild ,UpdateMemberCount ,UpdateServerCount ,fetchChangelogData} = require('../../handlers/settings.js');
 const { ActivityType ,EmbedBuilder } = require("discord.js");
-
+const getLogger = require("../../handlers/logs.js");
 module.exports = async (client) => {
   const data = await fetchChangelogData();
   const version = data[0].version;
@@ -28,7 +28,7 @@ module.exports = async (client) => {
         client.user.setActivity({ type: ActivityType.Custom, name: "irrelevant", state: activity.text, })
       })
       .catch(err => {
-        console.log(err);
+        getLogger.critical(err);
         return;
       });
   }, 10000);
@@ -40,20 +40,20 @@ module.exports = async (client) => {
   }, 10800000); // 3600000 Millisekunden = 1 Hour
     
 UpdateServerCount(client);
-console.log(`[Discord API] Logged in as ${client.user.tag}`);
+getLogger.ready(`[Discord API] Logged in as ${client.user.tag}`);
 db.authenticate()
   .then(() => {
     SGuilds.init(db);
     SGuilds.sync();
     Activity.init(db);
     Activity.sync();
-    console.log("[Database] Connection has been established successfully.");
+    getLogger.database("[Database] Connection has been established successfully.");
     client.guilds.cache.forEach(guild => {
       addGuild(guild);
     });
   })
   .catch((error) => {
-    console.error("[Database] Unable to connect to the database:", error);
+    getLogger.critical("[Database] Unable to connect to the database:", error);
   });
 
 };

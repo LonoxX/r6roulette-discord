@@ -4,6 +4,7 @@ const { EmbedBuilder ,ActionRowBuilder , ButtonBuilder ,ButtonStyle ,codeBlock }
 const fetch = require('cross-fetch');
 const { AutoPoster } = require('topgg-autoposter')
 const { getRandomColor } = require("./colorlist.js");
+const getLogger = require("./logs.js");
 
 function UpdateMemberCount(guild) {
   let member = SGuilds.update({
@@ -13,7 +14,7 @@ function UpdateMemberCount(guild) {
       guildId: guild.id,
     },
   });
-  console.log(`[Database] Update Member for Guild ${guild.name} (${guild.id})`);
+  getLogger.database(`Update Member for Guild ${guild.name} (${guild.id})`);
 }
 
 async function addGuild(guild) {
@@ -30,7 +31,7 @@ async function addGuild(guild) {
       membercount: guild.memberCount,
       created_at: new Date(),
     });
-    console.log(`[Database] Added Guild (${guild.id}) to the database`);
+    getLogger.database(`Added Guild (${guild.id}) to the database`);
   }
 }
 
@@ -46,17 +47,17 @@ async function removeGuild(guild) {
         guildId: guild.id
       }
     });
-    console.log(`[Database] Removed Guild (${guild.id}) from the database`);
+    getLogger.database(`Removed Guild (${guild.id}) from the database`);
   }
 }
 
 async function UpdateServerCount(client) {
   const poster = AutoPoster(config.Bot.topgg, client)
   poster.on('posted', (stats) => {
-    console.log(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`)
+    getLogger.info(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`)
   })
   poster.on('error', (e) => {
-    console.warn('[Top.gg] Error posting stats to top.gg:', e)
+    getLogger.warn('[Top.gg] Error posting stats to top.gg:', e)
   })
 }
 
@@ -165,7 +166,7 @@ function getRandomChallenge(challenges) {
 
 function createChallengeEmbed(challenge,interaction, client) {
   if (!challenge) {
-    console.error('Challenge is undefined');
+    getLogger.error('Challenge is undefined');
     return;
   }
 
@@ -226,7 +227,7 @@ async function getLatestChangelog(interaction, client) {
 
     return embed;
   } catch (error) {
-    console.error('Error fetching changelog:', error);
+    getLogger.error('Error fetching changelog:', error);
     return null;
   }
 }

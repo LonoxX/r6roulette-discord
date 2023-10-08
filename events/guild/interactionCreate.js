@@ -2,7 +2,7 @@ const Timeout = new Set();
 const config = require("../../config.json");
 const { EmbedBuilder,codeBlock} = require("discord.js");
 const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo} = require('../../handlers/settings');
-
+const getLogger = require("../../handlers/logs.js");
 module.exports = async (client, interaction) => {
   switch (interaction.customId) {
     case "R6RouletteAttack":
@@ -12,7 +12,7 @@ module.exports = async (client, interaction) => {
       const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
-        console.error('Error fetching operator:', error);
+        getLogger.error('Error fetching operator:', error);
         interaction.reply({ content: 'An error occurred.', ephemeral: true });
       }
       break;
@@ -23,7 +23,7 @@ module.exports = async (client, interaction) => {
       const response = await createOperatorEmbed(operator, interaction, client);
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
-        console.error('Error fetching operator:', error);
+        getLogger.error('Error fetching operator:', error);
         interaction.reply({ content: 'An error occurred.', ephemeral: true });
       }
     break
@@ -34,7 +34,7 @@ module.exports = async (client, interaction) => {
         const response = createChallengeEmbed(challenge, interaction, client); // Get the response object
         interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
-        console.error('Error fetching challenge:', error);
+        getLogger.error('Error fetching challenge:', error);
         interaction.reply({ content: 'An error occurred.', ephemeral: true });
       }
       break;
@@ -42,7 +42,7 @@ module.exports = async (client, interaction) => {
       try {
         getCommandinfo(interaction, client);
       } catch (error) {
-        console.error('error:', error);
+        getLogger.error('error:', error);
       }
       break;
 
@@ -94,7 +94,7 @@ module.exports = async (client, interaction) => {
         Timeout.delete(`${interaction.user.id}${command.name}`);
       }, command.timeout);
     } catch (error) {
-      console.error(error);
+      getLogger.error(error);
       await interaction.reply({ content:  ":x: Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!", ephemeral: true, });
     }
   }

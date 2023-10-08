@@ -3,6 +3,7 @@ const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const { readdirSync } = require("fs");
+const getLogger = require("./handlers/logs");
 const path = require("path");
 const client = new Client({
   intents: [
@@ -33,9 +34,9 @@ const rest = new REST({ version: "10" }).setToken(config.Bot.Token);
 (async () => {
   try {
     await rest.put(Routes.applicationCommands(config.Bot.BotID), { body: commands });
-    console.log("[Discord API] Successfully reloaded application (/) commands.");
+    getLogger.info("[Discord API] Successfully reloaded application (/) commands.");
   } 
-  catch (error) { console.error(error); }
+  catch (error) { getLogger.error(error); }
 })();
 
 
@@ -46,9 +47,9 @@ client.login(config.Bot.Token);
 });
 
 process.on("unhandledRejection", (err) => {
-  console.error(`Unhandled Rejection: ${err}`);
+  getLogger.error(`Unhandled Rejection: ${err}`);
 });
 
 process.on("uncaughtException", (err) => {
-  console.error(`Uncaught Exception: ${err}`);
+  getLogger.error(`Uncaught Exception: ${err}`);
 });
