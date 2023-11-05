@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 const { EmbedBuilder,ActionRowBuilder, ButtonBuilder ,ButtonStyle } = require("discord.js");
 const { getLatestChangelog } = require("../../handlers/settings.js");
-const { getRandomColor} = require("../../handlers/colorlist.js");
+const { getRandomColor} = require("../../utility/colorlist.js");
 const config = require("../../config.json");
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 
 module.exports = {
   name: "changelog",

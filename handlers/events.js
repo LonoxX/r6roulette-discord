@@ -1,5 +1,5 @@
 const { readdirSync } = require("fs");
-const getLogger = require("../handlers/logs.js")
+const getLogger = require("../utility/logs.js")
 module.exports = (client) => {
     const load = dirs => {
         const events = readdirSync(`./events/${dirs}/`).filter(d => d.endsWith("js"));

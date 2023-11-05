@@ -3,7 +3,7 @@ const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const { readdirSync } = require("fs");
-const getLogger = require("./handlers/logs");
+const getLogger = require("./utility/logs");
 const path = require("path");
 const client = new Client({
   intents: [
@@ -22,7 +22,6 @@ const config = require("./config.json");
 client.commands = new Discord.Collection();
 client.slash = new Discord.Collection();
 
-
 const commands = [];
 readdirSync("./slash/").map(async (dir) => {
   readdirSync(`./slash/${dir}/`).map(async (cmd) => {
@@ -39,10 +38,10 @@ const rest = new REST({ version: "10" }).setToken(config.Bot.Token);
   catch (error) { getLogger.error(error); }
 })();
 
-
 client.login(config.Bot.Token);
+module.exports = client;
 
-["handlers", "events", "slash"].forEach((handler) => {
+["handlers", "events", "slash" , "utility"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 

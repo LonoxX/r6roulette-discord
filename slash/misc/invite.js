@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { EmbedBuilder,ActionRowBuilder, ButtonBuilder ,ButtonStyle } = require("discord.js");
-const { getRandomColor } = require("../../handlers/colorlist.js");
-const getLogger = require("../../handlers/logs.js");
+const { getRandomColor } = require("../../utility/colorlist.js");
+const getLogger = require("../../utility/logs.js");
 
 module.exports = {
   name: "invite",

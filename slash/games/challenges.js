@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fetch = require('cross-fetch');
 const config = require('../../config.json');
 const { getRandomChallenge, fetchChallengeData, createChallengeEmbed} = require('../../handlers/settings');
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 
 module.exports = {
   name: "getchallenge",

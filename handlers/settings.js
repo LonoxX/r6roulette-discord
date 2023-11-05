@@ -3,8 +3,8 @@ const config = require("../config.json");
 const { EmbedBuilder ,ActionRowBuilder , ButtonBuilder ,ButtonStyle ,codeBlock } = require("discord.js");
 const fetch = require('cross-fetch');
 const { AutoPoster } = require('topgg-autoposter')
-const { getRandomColor } = require("./colorlist.js");
-const getLogger = require("./logs.js");
+const { getRandomColor } = require("../utility/colorlist.js");
+const getLogger = require("../utility/logs.js")
 
 function UpdateMemberCount(guild) {
   let member = SGuilds.update({

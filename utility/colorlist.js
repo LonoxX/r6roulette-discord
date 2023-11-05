@@ -20,7 +20,6 @@ const colorList = [
   { name: "DarkerGrey", hex: "#7F8C8D" },
   { name: "LightGrey", hex: "#BCC0C0" },
   { name: "Navy", hex: "#34495E" },
-  { name: "DarkNavy", hex: "#2C3E50" },
   { name: "Yellow", hex: "#FFFF00" },
   { name: "White", hex: "#FFFFFF" },
   { name: "Greyple", hex: "#99AAb5" },

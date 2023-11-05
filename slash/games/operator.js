@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { fetchOperatorData, createOperatorEmbed , getRandomOperator } = require('../../handlers/settings');
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 module.exports = {
   name: "operator",
   description: 'Generates a random operator',

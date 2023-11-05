@@ -2,7 +2,7 @@ const Timeout = new Set();
 const config = require("../../config.json");
 const { EmbedBuilder,codeBlock} = require("discord.js");
 const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo} = require('../../handlers/settings');
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 module.exports = async (client, interaction) => {
   switch (interaction.customId) {
     case "R6RouletteAttack":

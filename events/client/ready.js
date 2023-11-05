@@ -4,7 +4,7 @@ const SGuilds = require("../../handlers/guilds.js");
 const Activity = require("../../handlers/activity.js");
 const { addGuild ,UpdateMemberCount ,UpdateServerCount ,fetchChangelogData} = require('../../handlers/settings.js');
 const { ActivityType ,EmbedBuilder } = require("discord.js");
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 module.exports = async (client) => {
   const data = await fetchChangelogData();
   const version = data[0].version;

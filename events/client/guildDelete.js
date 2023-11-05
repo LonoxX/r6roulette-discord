@@ -2,7 +2,7 @@ const config = require("../../config.json");
 const Discord = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
 const { removeGuild, UpdateServerCount } = require('../../handlers/settings.js');
-const getLogger = require("../../handlers/logs.js");
+const getLogger = require("../../utility/logs.js");
 module.exports = async (client, guild) => {
   removeGuild(guild);
   UpdateServerCount(client);
