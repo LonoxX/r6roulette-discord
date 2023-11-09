@@ -1,38 +1,40 @@
 {
-    "name": "r6roulette_discord",
-    "version": "0.1",
-    "description": "R6 Roulette Discord Bot",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/LonoxX/r6roulette-discord.git"
-    },
-    "bugs": {
-        "url": "https://github.com/LonoxX/r6roulette-discord/issues"
-    },
-    "homepage": "https://github.com/LonoxX/r6roulette-discord#readme",
-    "scripts": {
-        "dev": "nodemon index.js",
-        "start": "node index.js"
-    },
-    "keywords": [
-        "fun,games,random,rainbow,random-generation,r6s,rainbow-six-siege,r6-operatoricons, LonoxX, r6roulette, panda-network,operator randomizer,random operator,random gun selection,random equipment"
-    ],
-    "author": "LonoxX",
-    "license": "GPL-3.0 license",
-    "dependencies": {
-        "@discordjs/builders": "^1.6.5",
-        "@discordjs/rest": "^2.0.1",
-        "@top-gg/sdk": "^3.1.6",
-        "cross-fetch": "^4.0.0",
-        "discord.js": "^14.13.0",
-        "express": "^4.18.2",
-        "fs": "^0.0.1-security",
-        "mysql2": "^3.6.3",
-        "sequelize": "^6.34.0",
-        "topgg-autoposter": "^2.0.1"
-    },
-    "devDependencies": {
-        "nodemon": "^3.0.1"
-    }
+  "name": "r6roulette_discord",
+  "version": "0.1",
+  "description": "R6 Roulette Discord Bot",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LonoxX/r6roulette-discord.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LonoxX/r6roulette-discord/issues"
+  },
+  "homepage": "https://github.com/LonoxX/r6roulette-discord#readme",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "format": "npx prettier . --write"
+  },
+  "keywords": [
+    "fun,games,random,rainbow,random-generation,r6s,rainbow-six-siege,r6-operatoricons, LonoxX, r6roulette, panda-network,operator randomizer,random operator,random gun selection,random equipment"
+  ],
+  "author": "LonoxX",
+  "license": "GPL-3.0 license",
+  "dependencies": {
+    "@discordjs/builders": "^1.6.5",
+    "@discordjs/rest": "^2.0.1",
+    "@top-gg/sdk": "^3.1.6",
+    "cross-fetch": "^4.0.0",
+    "discord.js": "^14.13.0",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.6.3",
+    "sequelize": "^6.34.0",
+    "topgg-autoposter": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prettier": "3.0.3"
+  }
 }

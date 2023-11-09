@@ -6,16 +6,7 @@ const { readdirSync } = require("fs");
 const getLogger = require("./utility/logs");
 const path = require("path");
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildInvites,
-    GatewayIntentBits.GuildBans,
-    GatewayIntentBits.GuildEmojisAndStickers,
-    GatewayIntentBits.GuildVoiceStates,
-  ],
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildVoiceStates],
   partials: [Partials.Channel, Partials.Message, Partials.GuildMember],
 });
 const config = require("./config.json");
@@ -27,21 +18,22 @@ readdirSync("./slash/").map(async (dir) => {
   readdirSync(`./slash/${dir}/`).map(async (cmd) => {
     commands.push(require(path.join(__dirname, `./slash/${dir}/${cmd}`)));
   });
-}); 
+});
 const rest = new REST({ version: "10" }).setToken(config.Bot.Token);
 
 (async () => {
   try {
     await rest.put(Routes.applicationCommands(config.Bot.BotID), { body: commands });
     getLogger.info("[Discord API] Successfully reloaded application (/) commands.");
-  } 
-  catch (error) { getLogger.error(error); }
+  } catch (error) {
+    getLogger.error(error);
+  }
 })();
 
 client.login(config.Bot.Token);
 module.exports = client;
 
-["handlers", "events", "slash" , "utility"].forEach((handler) => {
+["handlers", "events", "slash", "utility"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 

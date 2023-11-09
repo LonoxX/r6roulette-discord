@@ -1,11 +1,11 @@
 # R6 Roulette - Discord Bot
 
 ## About
-Tom Clancy's Rainbow Six Siege operator randomizer that display a random operator, random gun selection, and random equipment. 
+
+Tom Clancy's Rainbow Six Siege operator randomizer that display a random operator, random gun selection, and random equipment.
 
 Do you love playing Rainbow Six: Siege but are tired of always playing the same operators? Then you should definitely try out the Random Rainbow Six: Siege Operator Picker! With this web tool, you can discover a randomly selected operator, complete with weapons and gadgets, with just a click.
 This way, every game with a new operator combination becomes an exciting challenge.
-
 
 <details >
   <summary>🛠️<b> Screenshot </b> </summary>
@@ -18,7 +18,7 @@ This way, every game with a new operator combination becomes an exciting challen
 
 </details>
 
-
 # Support
+
 > Website: [Panda-Network.de](https://panda-network.de) \
 > Support [Discord Server](https://discord.gg/z8ScRvf)

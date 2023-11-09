@@ -1,12 +1,12 @@
 const Discord = require("discord.js");
-const fetch = require('cross-fetch');
-const config = require('../../config.json');
-const { getRandomChallenge, fetchChallengeData, createChallengeEmbed} = require('../../handlers/settings');
+const fetch = require("cross-fetch");
+const config = require("../../config.json");
+const { getRandomChallenge, fetchChallengeData, createChallengeEmbed } = require("../../handlers/settings");
 const getLogger = require("../../utility/logs.js");
 
 module.exports = {
   name: "getchallenge",
-  description: 'Generates a random challenge',
+  description: "Generates a random challenge",
   timeout: 3000,
   category: "games",
   usage: "/getchallenge",
@@ -17,10 +17,8 @@ module.exports = {
       const response = createChallengeEmbed(challenge, interaction, client); // Get the response object
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
     } catch (error) {
-      getLogger.error('Error fetching challenge:', error);
-      interaction.reply({ content: 'An error occurred.', ephemeral: true });
+      getLogger.error("Error fetching challenge:", error);
+      interaction.reply({ content: "An error occurred.", ephemeral: true });
     }
-  }
+  },
 };
-
-

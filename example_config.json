@@ -1,21 +1,21 @@
 {
-    "Bot":{
-        "Token": "Bot_Token",
-        "BotID": "Bot_ID",
-        "EmbedColor": "#3498dd",
-        "Prefix": "?", 
-        "OwnersID": ["Owner_ID"],
-        "Website": "https://r6roulette.de",
-        "SupportServer": "https://pnnet.dev/discord",
-        "Vote": "https://top.gg/de/bot/${BotID}/vote",
-        "LogChannel": "Channel_ID",
-        "Apikey": "request at https://pnnet.dev/discord",
-        "topgg" : "top.gg token"
-    },
-    "Database":{
-        "Hostname": "Hostname",
-        "Tablename": "Tablename",
-        "Username": "Username",
-        "Password": "Password"
-    }
+  "Bot": {
+    "Token": "Bot_Token",
+    "BotID": "Bot_ID",
+    "EmbedColor": "#3498dd",
+    "Prefix": "?",
+    "OwnersID": ["Owner_ID"],
+    "Website": "https://r6roulette.de",
+    "SupportServer": "https://pnnet.dev/discord",
+    "Vote": "https://top.gg/de/bot/${BotID}/vote",
+    "LogChannel": "Channel_ID",
+    "Apikey": "request at https://pnnet.dev/discord",
+    "topgg": "top.gg token"
+  },
+  "Database": {
+    "Hostname": "Hostname",
+    "Tablename": "Tablename",
+    "Username": "Username",
+    "Password": "Password"
+  }
 }

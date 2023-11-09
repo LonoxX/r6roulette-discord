@@ -27,7 +27,7 @@ module.exports = class guilds extends Model {
         timestamps: false,
         tableName: "discord_guilds",
         sequelize,
-      }
+      },
     );
   }
 };

@@ -28,7 +28,7 @@ const colorList = [
   { name: "Fuchsia", hex: "#EB459E" },
 ];
 function getColorHexByName(colorName) {
-  const color = colorList.find(color => color.name === colorName);
+  const color = colorList.find((color) => color.name === colorName);
   return color ? color.hex : null;
 }
 
@@ -37,4 +37,3 @@ function getRandomColor() {
   return colorList[randomIndex];
 }
 module.exports = { getColorHexByName, getRandomColor };
-
