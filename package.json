@@ -22,19 +22,19 @@
   "author": "LonoxX",
   "license": "GPL-3.0 license",
   "dependencies": {
-    "@discordjs/builders": "^1.6.5",
-    "@discordjs/rest": "^2.0.1",
+    "@discordjs/builders": "^1.7.0",
+    "@discordjs/rest": "^2.1.0",
     "@top-gg/sdk": "^3.1.6",
     "cross-fetch": "^4.0.0",
-    "discord.js": "^14.13.0",
+    "discord.js": "^14.14.1",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "mysql2": "^3.6.3",
-    "sequelize": "^6.34.0",
+    "sequelize": "^6.35.0",
     "topgg-autoposter": "^2.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
-    "prettier": "3.0.3"
+    "prettier": "3.1.0"
   }
 }
