@@ -6,8 +6,8 @@ const { readdirSync } = require("fs");
 const getLogger = require("./utility/logs");
 const path = require("path");
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildVoiceStates],
-  partials: [Partials.Channel, Partials.Message, Partials.GuildMember],
+  intents: [],
+  partials: [],
 });
 const config = require("./config.json");
 client.commands = new Discord.Collection();
@@ -33,7 +33,7 @@ const rest = new REST({ version: "10" }).setToken(config.Bot.Token);
 client.login(config.Bot.Token);
 module.exports = client;
 
-["handlers", "events", "slash", "utility"].forEach((handler) => {
+["events", "slash", "utility"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 

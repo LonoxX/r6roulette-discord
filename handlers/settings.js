@@ -1,58 +1,9 @@
-const SGuilds = require("./guilds.js");
 const config = require("../config.json");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require("discord.js");
 const fetch = require("cross-fetch");
 const { AutoPoster } = require("topgg-autoposter");
 const { getRandomColor } = require("../utility/colorlist.js");
 const getLogger = require("../utility/logs.js");
-
-function UpdateMemberCount(guild) {
-  let member = SGuilds.update(
-    {
-      membercount: guild.memberCount,
-    },
-    {
-      where: {
-        guildId: guild.id,
-      },
-    },
-  );
-  getLogger.database(`Update Member for Guild ${guild.name} (${guild.id})`);
-}
-
-async function addGuild(guild) {
-  const server = await SGuilds.findOne({
-    where: {
-      guildId: guild.id,
-    },
-  });
-  if (!server) {
-    await SGuilds.create({
-      guildId: guild.id,
-      prefix: config.Bot.Prefix,
-      playground: null,
-      membercount: guild.memberCount,
-      created_at: new Date(),
-    });
-    getLogger.database(`Added Guild (${guild.id}) to the database`);
-  }
-}
-
-async function removeGuild(guild) {
-  const server = await SGuilds.findOne({
-    where: {
-      guildId: guild.id,
-    },
-  });
-  if (server) {
-    await SGuilds.destroy({
-      where: {
-        guildId: guild.id,
-      },
-    });
-    getLogger.database(`Removed Guild (${guild.id}) from the database`);
-  }
-}
 
 async function UpdateServerCount(client) {
   const poster = AutoPoster(config.Bot.topgg, client);
@@ -224,9 +175,6 @@ async function getCommandinfo(interaction, client) {
 }
 
 module.exports = {
-  UpdateMemberCount,
-  addGuild,
-  removeGuild,
   UpdateServerCount,
   fetchOperatorData,
   getRandomFromArray,

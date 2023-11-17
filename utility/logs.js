@@ -13,7 +13,6 @@ const info = (log) => getLogger("INFO", "32m", log);
 const error = (log) => getLogger("ERROR", "31m", log);
 const debug = (log) => getLogger("DEBUG", "90m", log);
 const ready = (log) => getLogger("READY", "34m", log);
-const database = (log) => getLogger("DATABASE", "36m", log);
 const event = (log) => getLogger("EVENT", "33m", log);
 const utility = (log) => getLogger("UTILITY", "33m", log);
 const heartbeat = (log) => getLogger("HEARTBEAT", "35m", log);
@@ -31,7 +30,6 @@ module.exports = {
   error,
   debug,
   ready,
-  database,
   event,
   utility,
   heartbeat,
