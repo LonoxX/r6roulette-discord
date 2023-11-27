@@ -2,13 +2,14 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 const client = require("../index.js");
 const config = require("../config.json");
 const pawlog = require("./logs.js");
-const { getRandomColor } = require("./colorlist.js");
+const { getRandomColor ,convertHexToInt} = require("./colorlist.js");
 const express = require("express");
+const Topgg = require("@top-gg/sdk");
+const axios = require("axios");
 const app = express();
 const port = 3000;
-const Topgg = require("@top-gg/sdk");
-const votechannel = "1170739392340574299";
 const webhook = new Topgg.Webhook("vote");
+const webhookURL = "https://discord.com/api/webhooks/1178787065865977948/71mnF7i7iWJiMBrPNPFNgy6EU1I4yvXl9QB5LVAa1idmpXANFpH0axtB4yoFavVDNzvz";
 
 app
   .listen(port, () => {
@@ -17,22 +18,24 @@ app
   .on("error", (err) => {
     console.log(err);
   });
-app.post(
-  "/votebot",
-  webhook.listener(async (vote) => {
-    const channel = client.channels.cache.get(votechannel);
-    if (!channel) return;
-    const embed = new EmbedBuilder()
-      .setTitle("Vote")
-      .setColor(getRandomColor().hex)
-      .setDescription(`> <@${vote.user}> has voted for <@${vote.bot}>! \n Thank you for voting!`)
-      .setTimestamp()
-      .setFooter({ text: `${client.user.username} `, iconURL: `${client.user.displayAvatarURL()}` });
-
-    const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel(`Vote for ${client.user.username}`).setStyle(ButtonStyle.Link).setURL(`https://top.gg/bot/${client.user.id}/vote`));
-    channel.send({ embeds: [embed], components: [row] });
-  }),
-);
+  app.post("/votebot", webhook.listener(async (vote) => {
+    const embed = {
+      title: 'Vote',
+      description: `> <@${vote.user}> has voted for <@${vote.bot}>! \n Thank you for voting! \n You can vote again in 12 hours! \n \n [Vote for R6 Roulette](https://top.gg/bot/1129760031542358158/vote)`,
+      color: convertHexToInt(getRandomColor().hex),
+      timestamp: new Date(),
+    };
+    const data = {
+      embeds: [embed],
+    };
+  
+    axios.post(webhookURL, data)
+    .then(response => {
+    })
+    .catch(error => {
+      console.error('Fehler beim Senden des Embeds:', error);
+    });
+  }));
 
 app.get("/alive", (req, res) => {
   res.send("YesSir!");

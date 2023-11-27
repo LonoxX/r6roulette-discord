@@ -36,4 +36,8 @@ function getRandomColor() {
   const randomIndex = Math.floor(Math.random() * colorList.length);
   return colorList[randomIndex];
 }
-module.exports = { getColorHexByName, getRandomColor };
+function convertHexToInt(hex) {
+  return parseInt(hex.slice(1), 16);
+}
+
+module.exports = { getColorHexByName, getRandomColor,convertHexToInt };

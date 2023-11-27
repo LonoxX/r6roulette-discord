@@ -1,5 +1,5 @@
 const { ActivityType } = require("discord.js");
-const { UpdateServerCount, fetchChangelogData } = require("../../handlers/settings.js");
+const { fetchChangelogData } = require("../../handlers/settings.js");
 const getLogger = require("../../utility/logs.js");
 module.exports = async (client) => {
   const data = await fetchChangelogData();
@@ -9,10 +9,6 @@ module.exports = async (client) => {
     const activity = activities[Math.floor(Math.random() * activities.length)];
     client.user.setActivity({ type: ActivityType.Custom, name: "irrelevant", state: activity.text });
   }, 10000);
-  setInterval(() => {
-    client.guilds.cache.forEach((guild) => {
-      UpdateServerCount(client);
-    });
-  }, 28800000); // 8 hours in milliseconds
+  UpdateServerCount(client);
   getLogger.ready(`[Discord API] Logged in as ${client.user.tag}`);
 };
