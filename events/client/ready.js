@@ -1,5 +1,5 @@
 const { ActivityType } = require("discord.js");
-const { fetchChangelogData } = require("../../handlers/settings.js");
+const { UpdateServerCount, fetchChangelogData } = require("../../handlers/settings.js");
 const getLogger = require("../../utility/logs.js");
 module.exports = async (client) => {
   const data = await fetchChangelogData();

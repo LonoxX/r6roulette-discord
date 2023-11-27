@@ -40,4 +40,4 @@ function convertHexToInt(hex) {
   return parseInt(hex.slice(1), 16);
 }
 
-module.exports = { getColorHexByName, getRandomColor,convertHexToInt };
+module.exports = { getColorHexByName, getRandomColor, convertHexToInt };

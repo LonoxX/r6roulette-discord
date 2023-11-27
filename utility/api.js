@@ -2,14 +2,14 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 const client = require("../index.js");
 const config = require("../config.json");
 const pawlog = require("./logs.js");
-const { getRandomColor ,convertHexToInt} = require("./colorlist.js");
+const { getRandomColor, convertHexToInt } = require("./colorlist.js");
 const express = require("express");
 const Topgg = require("@top-gg/sdk");
 const axios = require("axios");
 const app = express();
 const port = 3000;
 const webhook = new Topgg.Webhook("vote");
-const webhookURL = "https://discord.com/api/webhooks/1178787065865977948/71mnF7i7iWJiMBrPNPFNgy6EU1I4yvXl9QB5LVAa1idmpXANFpH0axtB4yoFavVDNzvz";
+const webhookURL = "https://discord.com/api/webhooks/1178793176480370738/DRUm8DZ2XqnTMhfCc20CGN5DLKTJHPIYv9zH9gyfTgj3z136ECjIog3INd3JIXUZ9UbD";
 
 app
   .listen(port, () => {
@@ -18,9 +18,11 @@ app
   .on("error", (err) => {
     console.log(err);
   });
-  app.post("/votebot", webhook.listener(async (vote) => {
+app.post(
+  "/votebot",
+  webhook.listener(async (vote) => {
     const embed = {
-      title: 'Vote',
+      title: "Vote",
       description: `> <@${vote.user}> has voted for <@${vote.bot}>! \n Thank you for voting! \n You can vote again in 12 hours! \n \n [Vote for R6 Roulette](https://top.gg/bot/1129760031542358158/vote)`,
       color: convertHexToInt(getRandomColor().hex),
       timestamp: new Date(),
@@ -28,14 +30,15 @@ app
     const data = {
       embeds: [embed],
     };
-  
-    axios.post(webhookURL, data)
-    .then(response => {
-    })
-    .catch(error => {
-      console.error('Fehler beim Senden des Embeds:', error);
-    });
-  }));
+
+    axios
+      .post(webhookURL, data)
+      .then((response) => {})
+      .catch((error) => {
+        console.error("Fehler beim Senden des Embeds:", error);
+      });
+  }),
+);
 
 app.get("/alive", (req, res) => {
   res.send("YesSir!");
