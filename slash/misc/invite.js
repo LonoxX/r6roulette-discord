@@ -15,13 +15,13 @@ module.exports = {
         .setTitle("Invite me to your server!")
         .setColor(getRandomColor().hex)
         .setDescription("Click the link below to invite me to your server!")
-        .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+        .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
         .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
         .setTimestamp();
 
       const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel("Invite me!").setStyle(ButtonStyle.Link).setURL("https://pnnet.dev/r6discord"));
 
-      return interaction.reply({ embeds: [embed], components: [row] });
+      return interaction.reply({ embeds: [embed]});
     } catch (error) {
       getLogger.error("Error sending invite:", error);
       interaction.reply({ content: "X Error sending invite.", ephemeral: true });

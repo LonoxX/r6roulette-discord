@@ -114,7 +114,7 @@ function createChallengeEmbed(challenge, interaction, client) {
   const embed = new EmbedBuilder()
     .setTitle("Challenge")
     .setColor(getRandomColor().hex)
-    .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+    .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
     .addFields({ name: "🇩🇪 Challenge Title", value: challenge.title_german, inline: true }, { name: "Challenge Description", value: challenge.description_german, inline: true }, { name: "\u200B", value: "\u200B" }, { name: "🇺🇸 Challenge Title", value: challenge.title_english, inline: true }, { name: "Challenge Description", value: challenge.description_english, inline: true })
     .setTimestamp()
     .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
@@ -132,21 +132,15 @@ async function fetchChangelogData() {
 async function getLatestChangelog(interaction, client) {
   try {
     const data = await fetchChangelogData();
-    const type = ["attacker", "defender"];
-    const operatorType = type[Math.floor(Math.random() * type.length)];
-    const operator = await fetchOperatorData(operatorType);
-    const output = getRandomOperator(operator);
-
     const embed = new EmbedBuilder()
       .setTitle(`Changelog \`${data[0].version}\``)
       .setColor(getRandomColor().hex)
-      .setThumbnail(output.badge)
-      .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+      .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
       .addFields([
         { name: "Changes", value: data[0].message },
         { name: "Ubisoft Patch Support", value: data[0].Upatch, inline: true },
       ])
-      .setFooter({ text: `Created at ${data[0].created_at}`, iconURL: interaction.user.displayAvatarURL() });
+      .setFooter({ text: `Created at ${data[0].created_at}`, iconURL: `${client.user.displayAvatarURL()}` });
 
     return embed;
   } catch (error) {
