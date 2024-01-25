@@ -168,6 +168,23 @@ async function getCommandinfo(interaction, client) {
   await interaction.reply({ content: `❔ Help for ${command.name}`, embeds: [embed], ephemeral: true });
 }
 
+
+function createAdEmbed(client) {
+  const adEmbed = new EmbedBuilder()
+  .setTitle(`Werbung`)
+  .setColor(getRandomColor().hex)
+  .setDescription(`**R6Roulette Android App**\nWe have developed an app and still need some testers to get it approved on the App Store. If you are interested, create a ticket to be unlocked as a tester.`)
+  .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
+  .setThumbnail(`${client.user.displayAvatarURL()}`)
+  .addFields([
+    { name: "Support Server", value: `[Join](https://pnnet.dev/doscrd)`, inline: true },
+  ])
+  .setTimestamp()
+  .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` });
+
+    return adEmbed;
+}
+
 module.exports = {
   UpdateServerCount,
   fetchOperatorData,
@@ -184,4 +201,5 @@ module.exports = {
   getLatestChangelog,
   fetchChangelogData,
   getCommandinfo,
+  createAdEmbed
 };

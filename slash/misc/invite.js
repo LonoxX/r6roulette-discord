@@ -21,7 +21,7 @@ module.exports = {
 
       const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel("Invite me!").setStyle(ButtonStyle.Link).setURL("https://pnnet.dev/r6discord"));
 
-      return interaction.reply({ embeds: [embed]});
+      return interaction.reply({ embeds: [embed], components: [row] });
     } catch (error) {
       getLogger.error("Error sending invite:", error);
       interaction.reply({ content: "X Error sending invite.", ephemeral: true });

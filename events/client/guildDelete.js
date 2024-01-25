@@ -1,4 +1,3 @@
-const { UpdateServerCount } = require("../../handlers/settings.js");
 module.exports = async (client, guild) => {
-  UpdateServerCount(client);
+  console.log(`[GUILD LEAVE] ${guild.name} (${guild.id}) removed the bot.`);
 };

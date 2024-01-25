@@ -1,4 +1,3 @@
-const { UpdateServerCount } = require("../../handlers/settings.js");
 module.exports = async (client, guild) => {
-  UpdateServerCount(client);
+  console.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot.`);
 };
