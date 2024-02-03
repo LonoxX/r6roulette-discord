@@ -1,14 +1,14 @@
 const Timeout = new Set();
 const config = require("../../config.json");
 const { EmbedBuilder, codeBlock } = require("discord.js");
-const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo , createAdEmbed} = require("../../handlers/settings");
+const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo, createAdEmbed } = require("../../handlers/settings");
 const getLogger = require("../../utility/logs.js");
 let interactionCount = 0;
 const AD_INTERACTION_INTERVAL = 200;
 module.exports = async (client, interaction) => {
   switch (interaction.customId) {
     case "R6RouletteAttack":
-      interactionCount++;    
+      interactionCount++;
       let embeds = [];
       if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
         const adEmbed = createAdEmbed(client);
@@ -25,29 +25,29 @@ module.exports = async (client, interaction) => {
         interaction.reply({ content: "An error occurred.", ephemeral: true });
       }
       break;
-      case "R6RouletteDefend":
-        interactionCount++;
-        let embeds1 = [];
-        if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
-          const adEmbed = createAdEmbed();
-          embeds1.push(adEmbed);
-        }
-        try {
-          const data = await fetchOperatorData("defender");
-          const operator = getRandomOperator(data);
-          const response = await createOperatorEmbed(operator, interaction, client);
-          embeds1.push(response.embeds[0]);
-          interaction.reply({ embeds: embeds1, components: [response.components[0]] });
-        } catch (error) {
-          getLogger.error("Error fetching operator:", error);
-          interaction.reply({ content: "An error occurred.", ephemeral: true });
-        }
-        break;
+    case "R6RouletteDefend":
+      interactionCount++;
+      let embeds1 = [];
+      if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
+        const adEmbed = createAdEmbed();
+        embeds1.push(adEmbed);
+      }
+      try {
+        const data = await fetchOperatorData("defender");
+        const operator = getRandomOperator(data);
+        const response = await createOperatorEmbed(operator, interaction, client);
+        embeds1.push(response.embeds[0]);
+        interaction.reply({ embeds: embeds1, components: [response.components[0]] });
+      } catch (error) {
+        getLogger.error("Error fetching operator:", error);
+        interaction.reply({ content: "An error occurred.", ephemeral: true });
+      }
+      break;
     case "R6RouletteChallenge":
       try {
         const challengeResponse = await fetchChallengeData();
         const challenge = getRandomChallenge(challengeResponse);
-        const response = createChallengeEmbed(challenge, interaction, client); 
+        const response = createChallengeEmbed(challenge, interaction, client);
         interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
         getLogger.error("Error fetching challenge:", error);

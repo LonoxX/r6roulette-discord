@@ -1,15 +1,19 @@
 {
   "Bot": {
-    "Token": "Bot_Token",
-    "BotID": "Bot_ID",
+    "Token": "Token",
+    "BotID": "BotID",
     "EmbedColor": "#3498dd",
-    "Prefix": "?",
-    "OwnersID": ["Owner_ID"],
+    "Prefix": "Prefix",
+    "OwnersID": [
+      "Owner_ID",
+      "Owner_ID"
+    ],
     "Website": "https://r6roulette.de",
     "SupportServer": "https://pnnet.dev/discord",
-    "Vote": "https://top.gg/de/bot/${BotID}/vote",
-    "LogChannel": "Channel_ID",
-    "Apikey": "request at https://pnnet.dev/discord",
-    "topgg": "top.gg token"
+    "Vote": "https://top.gg/de/bot/1129760031542358158/vote",
+    "LogChannel": "LogChannel",
+    "ErrorChannel": "ErrorChannel",
+    "Apikey": "Apikey",
+    "topgg": "topgg"
   }
 }
