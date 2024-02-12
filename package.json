@@ -31,7 +31,7 @@
     "discord.js": "^14.14.1",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
-    "topgg-autoposter": "^2.0.1"
+    "topgg-autoposter": "^2.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.3",
