@@ -1,17 +1,65 @@
 const config = require("../config.json");
+const SGuilds = require("../models/guilds.js");
+const Advertisement = require("../models/advertisement.js");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require("discord.js");
 const fetch = require("cross-fetch");
 const { AutoPoster } = require("topgg-autoposter");
 const { getRandomColor } = require("../utility/colorlist.js");
-const getLogger = require("../utility/logs.js");
+const pawlog = require("../utility/logs.js");
+
+function UpdateMemberCount(guild) {
+  let member = SGuilds.update(
+    {
+      membercount: guild.memberCount,
+    },
+    {
+      where: {
+        guildId: guild.id,
+      },
+    },
+  );
+  pawlog.database(`Update Member for Guild ${guild.name} (${guild.id})`);
+}
+
+async function addGuild(guild) {
+  const server = await SGuilds.findOne({
+    where: {
+      guildId: guild.id,
+    },
+  });
+  if (!server) {
+    await SGuilds.create({
+      guildId: guild.id,
+      membercount: guild.memberCount,
+      created_at: new Date(),
+    });
+    pawlog.database(`Added Guild (${guild.id}) to the database`);
+  }
+}
+
+async function removeGuild(guild) {
+  const server = await SGuilds.findOne({
+    where: {
+      guildId: guild.id,
+    },
+  });
+  if (server) {
+    await SGuilds.destroy({
+      where: {
+        guildId: guild.id,
+      },
+    });
+    pawlog.database(`Removed Guild (${guild.id}) from the database`);
+  }
+}
 
 async function UpdateServerCount(client) {
   const poster = AutoPoster(config.Bot.topgg, client);
   poster.on("posted", (stats) => {
-    getLogger.info(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`);
+    pawlog.info(`[Top.gg] Posted stats to top.gg: ${stats.serverCount} servers`);
   });
   poster.on("error", (e) => {
-    getLogger.warn("[Top.gg] Error posting stats to top.gg:", e);
+    pawlog.warn("[Top.gg] Error posting stats to top.gg:", e);
   });
 }
 
@@ -107,7 +155,7 @@ function getRandomChallenge(challenges) {
 
 function createChallengeEmbed(challenge, interaction, client) {
   if (!challenge) {
-    getLogger.error("Challenge is undefined");
+    pawlog.error("Challenge is undefined");
     return;
   }
 
@@ -144,7 +192,7 @@ async function getLatestChangelog(interaction, client) {
 
     return embed;
   } catch (error) {
-    getLogger.error("Error fetching changelog:", error);
+    pawlog.error("Error fetching changelog:", error);
     return null;
   }
 }
@@ -168,21 +216,54 @@ async function getCommandinfo(interaction, client) {
   await interaction.reply({ content: `❔ Help for ${command.name}`, embeds: [embed], ephemeral: true });
 }
 
-function createAdEmbed(client) {
-  const adEmbed = new EmbedBuilder()
-    .setTitle(`Werbung`)
-    .setColor(getRandomColor().hex)
-    .setDescription(`**R6Roulette Android App**\nWe have developed an app and still need some testers to get it approved on the App Store. If you are interested, create a ticket to be unlocked as a tester.`)
-    .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
-    .setThumbnail(`${client.user.displayAvatarURL()}`)
-    .addFields([{ name: "Support Server", value: `[Join](https://pnnet.dev/discord)`, inline: true }])
-    .setTimestamp()
-    .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` });
+async function getAdData() {
+  try {
+    const ads = await Advertisement.findAll();
+    const randomAd = ads.length > 0 ? ads[Math.floor(Math.random() * ads.length)] : null;
+    return randomAd;
+  } catch (error) {
+    console.error("Error fetching advertisement data:", error);
+    throw error;
+  }
+}
 
-  return adEmbed;
+async function createAdEmbed(client) {
+  try {
+    const adData = await getAdData();
+
+    if (!adData) {
+      const defaultAdEmbed = new EmbedBuilder()
+        .setTitle(`Help ${client.user.username}'s development`)
+        .setColor(getRandomColor().hex)
+        .setDescription(`${client.user.username} is accepting donations to support its continued development.\nLearn more with **/donate**`)
+        .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
+        .setThumbnail(`${client.user.displayAvatarURL()}`)
+        .setTimestamp()
+        .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` });
+      return defaultAdEmbed;
+    }
+
+    const adEmbed = new EmbedBuilder()
+      .setTitle(adData.title)
+      .setColor(getRandomColor().hex)
+      .setDescription(adData.description)
+      .setAuthor({ name: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` })
+      .setThumbnail(`${client.user.displayAvatarURL()}`)
+      .addFields([{ name: "Support Server", value: `[Join](https://pnnet.dev/discord)`, inline: true }])
+      .setTimestamp()
+      .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.displayAvatarURL()}` });
+
+    return adEmbed;
+  } catch (error) {
+    console.error("Error creating advertisement embed:", error);
+    throw error;
+  }
 }
 
 module.exports = {
+  addGuild,
+  removeGuild,
+  UpdateMemberCount,
   UpdateServerCount,
   fetchOperatorData,
   getRandomFromArray,

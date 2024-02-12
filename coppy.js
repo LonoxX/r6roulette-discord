@@ -1,5 +1,5 @@
 const fs = require("fs");
-const excludeKeys = ["EmbedColor", "Website", "SupportServer", "Vote"];
+const excludeKeys = ["EmbedColor", "Website", "SupportServer", "Vote", "Donate"];
 const specificValueKeys = {
   OwnersID: ["Owner_ID", "Owner_ID"],
 };

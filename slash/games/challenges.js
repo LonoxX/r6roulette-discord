@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fetch = require("cross-fetch");
 const config = require("../../config.json");
 const { getRandomChallenge, fetchChallengeData, createChallengeEmbed } = require("../../handlers/settings");
-const getLogger = require("../../utility/logs.js");
+const pawlog = require("../../utility/logs.js");
 
 module.exports = {
   name: "getchallenge",
@@ -17,7 +17,7 @@ module.exports = {
       const response = createChallengeEmbed(challenge, interaction, client); // Get the response object
       interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
     } catch (error) {
-      getLogger.error("Error fetching challenge:", error);
+      pawlog.error("Error fetching challenge:", error);
       interaction.reply({ content: "An error occurred.", ephemeral: true });
     }
   },

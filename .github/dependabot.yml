@@ -6,7 +6,7 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
     labels:
-      - Dependencies
+      - dependencies
     allow:
       - dependency-type: direct
     commit-message:

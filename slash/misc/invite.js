@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { getRandomColor } = require("../../utility/colorlist.js");
-const getLogger = require("../../utility/logs.js");
+const pawlog = require("../../utility/logs.js");
 
 module.exports = {
   name: "invite",
@@ -23,7 +23,7 @@ module.exports = {
 
       return interaction.reply({ embeds: [embed], components: [row] });
     } catch (error) {
-      getLogger.error("Error sending invite:", error);
+      pawlog.error("Error sending invite:", error);
       interaction.reply({ content: "X Error sending invite.", ephemeral: true });
     }
   },

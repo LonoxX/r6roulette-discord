@@ -3,10 +3,10 @@ const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const { readdirSync } = require("fs");
-const getLogger = require("./utility/logs");
+const pawlog = require("./utility/logs");
 const path = require("path");
 const client = new Client({
-  intents: [],
+  intents: [GatewayIntentBits.Guilds],
   partials: [],
 });
 const config = require("./config.json");
@@ -24,9 +24,9 @@ const rest = new REST({ version: "10" }).setToken(config.Bot.Token);
 (async () => {
   try {
     await rest.put(Routes.applicationCommands(config.Bot.BotID), { body: commands });
-    getLogger.info("[Discord API] Successfully reloaded application (/) commands.");
+    pawlog.info("[Discord API] Successfully reloaded application (/) commands.");
   } catch (error) {
-    getLogger.error(error);
+    pawlog.error(error);
   }
 })();
 
@@ -38,9 +38,9 @@ module.exports = client;
 });
 
 process.on("unhandledRejection", (err) => {
-  getLogger.error(`Unhandled Rejection: ${err}`);
+  pawlog.error(`Unhandled Rejection: ${err}`);
 });
 
 process.on("uncaughtException", (err) => {
-  getLogger.error(`Uncaught Exception: ${err}`);
+  pawlog.error(`Uncaught Exception: ${err}`);
 });

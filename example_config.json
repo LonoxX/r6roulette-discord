@@ -4,10 +4,7 @@
     "BotID": "BotID",
     "EmbedColor": "#3498dd",
     "Prefix": "Prefix",
-    "OwnersID": [
-      "Owner_ID",
-      "Owner_ID"
-    ],
+    "OwnersID": ["Owner_ID", "Owner_ID"],
     "Website": "https://r6roulette.de",
     "SupportServer": "https://pnnet.dev/discord",
     "Vote": "https://top.gg/de/bot/1129760031542358158/vote",
@@ -15,5 +12,16 @@
     "ErrorChannel": "ErrorChannel",
     "Apikey": "Apikey",
     "topgg": "topgg"
+  },
+  "Database": {
+    "Hostname": "Hostname",
+    "Tablename": "Tablename",
+    "Username": "Username",
+    "Password": "Password"
+  },
+  "Donate": {
+    "Github": "https://github.com/sponsors/LonoxX/",
+    "Ko-Fi": "https://ko-fi.com/lonoxx",
+    "PayPal": "https://paypal.me/BjornPlatte"
   }
 }

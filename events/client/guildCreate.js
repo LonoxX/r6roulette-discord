@@ -1,3 +1,6 @@
+const config = require("../../config.json");
+const { addGuild } = require("../../handlers/settings.js");
 module.exports = async (client, guild) => {
-  console.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot.`);
+  addGuild(guild);
+  console.log(`[GUILD JOIN] ${guild.id} added the bot.`);
 };

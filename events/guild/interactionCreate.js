@@ -2,7 +2,7 @@ const Timeout = new Set();
 const config = require("../../config.json");
 const { EmbedBuilder, codeBlock } = require("discord.js");
 const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo, createAdEmbed } = require("../../handlers/settings");
-const getLogger = require("../../utility/logs.js");
+const pawlog = require("../../utility/logs.js");
 let interactionCount = 0;
 const AD_INTERACTION_INTERVAL = 200;
 module.exports = async (client, interaction) => {
@@ -11,7 +11,7 @@ module.exports = async (client, interaction) => {
       interactionCount++;
       let embeds = [];
       if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
-        const adEmbed = createAdEmbed(client);
+        const adEmbed = await createAdEmbed(client);
         embeds.push(adEmbed);
       }
       try {
@@ -21,7 +21,7 @@ module.exports = async (client, interaction) => {
         embeds.push(response.embeds[0]); // Fügt den Operator-Embed zum Array hinzu
         interaction.reply({ embeds: embeds, components: [response.components[0]] });
       } catch (error) {
-        getLogger.error("Error fetching operator:", error);
+        pawlog.error("Error fetching operator:", error);
         interaction.reply({ content: "An error occurred.", ephemeral: true });
       }
       break;
@@ -29,7 +29,7 @@ module.exports = async (client, interaction) => {
       interactionCount++;
       let embeds1 = [];
       if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
-        const adEmbed = createAdEmbed();
+        const adEmbed = await createAdEmbed(client);
         embeds1.push(adEmbed);
       }
       try {
@@ -39,7 +39,7 @@ module.exports = async (client, interaction) => {
         embeds1.push(response.embeds[0]);
         interaction.reply({ embeds: embeds1, components: [response.components[0]] });
       } catch (error) {
-        getLogger.error("Error fetching operator:", error);
+        pawlog.error("Error fetching operator:", error);
         interaction.reply({ content: "An error occurred.", ephemeral: true });
       }
       break;
@@ -50,7 +50,7 @@ module.exports = async (client, interaction) => {
         const response = createChallengeEmbed(challenge, interaction, client);
         interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
-        getLogger.error("Error fetching challenge:", error);
+        pawlog.error("Error fetching challenge:", error);
         interaction.reply({ content: "An error occurred.", ephemeral: true });
       }
       break;
@@ -58,7 +58,7 @@ module.exports = async (client, interaction) => {
       try {
         getCommandinfo(interaction, client);
       } catch (error) {
-        getLogger.error("error:", error);
+        pawlog.error("error:", error);
       }
       break;
 
@@ -108,7 +108,7 @@ module.exports = async (client, interaction) => {
         Timeout.delete(`${interaction.user.id}${command.name}`);
       }, command.timeout);
     } catch (error) {
-      getLogger.error(error);
+      pawlog.error(error);
       await interaction.reply({ content: ":x: Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!", ephemeral: true });
     }
   }
