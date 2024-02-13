@@ -18,7 +18,6 @@ function UpdateMemberCount(guild) {
       },
     },
   );
-  pawlog.database(`Update Member for Guild ${guild.name} (${guild.id})`);
 }
 
 async function addGuild(guild) {
@@ -33,7 +32,6 @@ async function addGuild(guild) {
       membercount: guild.memberCount,
       created_at: new Date(),
     });
-    pawlog.database(`Added Guild (${guild.id}) to the database`);
   }
 }
 
@@ -49,7 +47,6 @@ async function removeGuild(guild) {
         guildId: guild.id,
       },
     });
-    pawlog.database(`Removed Guild (${guild.id}) from the database`);
   }
 }
 

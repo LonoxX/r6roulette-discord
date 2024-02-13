@@ -10,7 +10,7 @@ module.exports = async (client) => {
   const data = await fetchChangelogData();
   const version = data[0].version;
   setInterval(() => {
-    const activities = [{ text: "🤖 V " + version }, { text: "❔ /help" }];
+    const activities = [{ text: "🤖 V " + version }, { text: "❔ /help" }, { text: "" + Math.ceil(client.guilds.cache.size) + " Guilds" }];
     let activity;
     db.authenticate()
       .then(async () => {
@@ -49,11 +49,13 @@ module.exports = async (client) => {
       console.error(error);
       pawlog.critical("[Database] Unable to connect to the database:", error);
     });
-
+  
   cron.schedule("0 8 * * *", async () => {
     try {
       UpdateServerCount();
-      UpdateMemberCount();
+      client.guilds.cache.forEach((guild) => {
+        UpdateMemberCount(guild);
+      });
     } catch (error) {
       console.error("Error in scheduled task:", error);
     }
