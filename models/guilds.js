@@ -15,6 +15,12 @@ module.exports = class guilds extends Model {
         membercount: {
           type: DataTypes.INTEGER,
         },
+        advertisement: {
+          type: DataTypes.INTEGER,
+        },
+        max_advertisement: {
+          type: DataTypes.INTEGER,
+        },
         created_at: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW,

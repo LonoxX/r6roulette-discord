@@ -49,10 +49,10 @@ module.exports = async (client) => {
       console.error(error);
       pawlog.critical("[Database] Unable to connect to the database:", error);
     });
-  
+
   cron.schedule("0 8 * * *", async () => {
     try {
-      UpdateServerCount();
+      UpdateServerCount(client);
       client.guilds.cache.forEach((guild) => {
         UpdateMemberCount(guild);
       });

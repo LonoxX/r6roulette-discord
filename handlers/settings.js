@@ -30,9 +30,24 @@ async function addGuild(guild) {
     await SGuilds.create({
       guildId: guild.id,
       membercount: guild.memberCount,
+      advertisement: 199,
+      max_advertisement: 200,
       created_at: new Date(),
     });
   }
+}
+
+async function Updateadvertisement(guild, advertisement) {
+  let member = SGuilds.update(
+    {
+      advertisement: advertisement,
+    },
+    {
+      where: {
+        guildId: guild.id,
+      },
+    },
+  );
 }
 
 async function removeGuild(guild) {
@@ -277,4 +292,5 @@ module.exports = {
   fetchChangelogData,
   getCommandinfo,
   createAdEmbed,
+  Updateadvertisement,
 };

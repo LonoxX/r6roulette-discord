@@ -1,11 +1,14 @@
 const Timeout = new Set();
 const config = require("../../config.json");
 const { EmbedBuilder, codeBlock } = require("discord.js");
-const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo, createAdEmbed } = require("../../handlers/settings");
+const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChallengeData, getRandomChallenge, createChallengeEmbed, getCommandinfo, createAdEmbed, Updateadvertisement } = require("../../handlers/settings");
 const pawlog = require("../../utility/logs.js");
-let interactionCount = 0;
-const AD_INTERACTION_INTERVAL = 200;
+const SGuilds = require("../../models/guilds.js");
 module.exports = async (client, interaction) => {
+  const guild = interaction.guild;
+  const add = await SGuilds.findOne({ where: { guildId: guild.id } });
+  let interactionCount = add.advertisement;
+  const AD_INTERACTION_INTERVAL = add.max_advertisement;
   switch (interaction.customId) {
     case "R6RouletteAttack":
       interactionCount++;
@@ -13,6 +16,7 @@ module.exports = async (client, interaction) => {
       if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
         const adEmbed = await createAdEmbed(client);
         embeds.push(adEmbed);
+        await SGuilds.update({ advertisement: 0 }, { where: { guildId: guild.id } });
       }
       try {
         const data = await fetchOperatorData("attacker");
@@ -20,6 +24,7 @@ module.exports = async (client, interaction) => {
         const response = await createOperatorEmbed(operator, interaction, client);
         embeds.push(response.embeds[0]); // Fügt den Operator-Embed zum Array hinzu
         interaction.reply({ embeds: embeds, components: [response.components[0]] });
+        await SGuilds.update({ advertisement: interactionCount % AD_INTERACTION_INTERVAL }, { where: { guildId: guild.id } });
       } catch (error) {
         pawlog.error("Error fetching operator:", error);
         interaction.reply({ content: "An error occurred.", ephemeral: true });
@@ -31,13 +36,15 @@ module.exports = async (client, interaction) => {
       if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
         const adEmbed = await createAdEmbed(client);
         embeds1.push(adEmbed);
+        await SGuilds.update({ advertisement: 0 }, { where: { guildId: guild.id } });
       }
       try {
         const data = await fetchOperatorData("defender");
         const operator = getRandomOperator(data);
         const response = await createOperatorEmbed(operator, interaction, client);
-        embeds1.push(response.embeds[0]);
+        embeds1.push(response.embeds[0]); // Fügt den Operator-Embed zum Array hinzu
         interaction.reply({ embeds: embeds1, components: [response.components[0]] });
+        await SGuilds.update({ advertisement: interactionCount % AD_INTERACTION_INTERVAL }, { where: { guildId: guild.id } });
       } catch (error) {
         pawlog.error("Error fetching operator:", error);
         interaction.reply({ content: "An error occurred.", ephemeral: true });
