@@ -53,7 +53,7 @@ module.exports = {
 
         const row = new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
-            .setCustomId("RR6RouletteHelp")
+            .setCustomId("R6RouletteHelp")
             .setPlaceholder("Select a command")
             .addOptions(
               client.slash.map((cmd) => ({
