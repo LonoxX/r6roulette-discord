@@ -1,6 +1,6 @@
 {
   "name": "r6roulette_discord",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "R6 Roulette Discord Bot",
   "main": "index.js",
   "repository": {
