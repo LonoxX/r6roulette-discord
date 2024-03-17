@@ -5,23 +5,23 @@ const db = require("../../handlers/database.js");
 const SGuilds = require("../../models/guilds.js");
 const Advertisement = require("../../models/advertisement.js");
 const pawlog = require("../../utility/logs.js");
-const axios = require('axios');
+const axios = require("axios");
 module.exports = async (client) => {
   const data = await fetchChangelogData();
   const version = data[0].version;
   setInterval(async () => {
     try {
-    const activities = [{ text: "🤖 V " + version }, { text: "❔ /help" }, { text: "" + Math.ceil(client.guilds.cache.size) + " Guilds" }];
-    const response = await axios.get('https://api.pnnet.dev/status/r6r');
-    if (response.data && response.data.length > 0) {
-      response.data.forEach((apiActivity) => {
-        activities.push({ text: apiActivity.text });
-      });
-    }
-    const randomActivity = activities[Math.floor(Math.random() * activities.length)];
-    client.user.setActivity({ type: ActivityType.Custom, name: "irrelevant", state: randomActivity.text });
+      const activities = [{ text: "🤖 V " + version }, { text: "❔ /help" }, { text: "" + Math.ceil(client.guilds.cache.size) + " Guilds" }];
+      const response = await axios.get("https://api.pnnet.dev/status/r6r");
+      if (response.data && response.data.length > 0) {
+        response.data.forEach((apiActivity) => {
+          activities.push({ text: apiActivity.text });
+        });
+      }
+      const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+      client.user.setActivity({ type: ActivityType.Custom, name: "irrelevant", state: randomActivity.text });
     } catch (error) {
-      console.error('Fehler bei der API-Anfrage:', error.message);
+      console.error("Fehler bei der API-Anfrage:", error.message);
     }
   }, 10000);
   UpdateServerCount(client);
