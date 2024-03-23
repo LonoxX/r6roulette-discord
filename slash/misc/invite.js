@@ -9,6 +9,7 @@ module.exports = {
   timeout: 3000,
   category: "misc",
   usage: "/invite",
+  usageinDM: "yes",
   run: async (interaction, client) => {
     try {
       const embed = new EmbedBuilder()

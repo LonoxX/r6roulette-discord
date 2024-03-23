@@ -4,9 +4,12 @@ const pawlog = require("../../utility/logs.js");
 module.exports = {
   name: "operator",
   description: "Generates a random operator",
+  integration_types: [1], // This command can be installed in servers
+  contexts: [0, 2], // This command can be used in servers and user DMs
   timeout: 3000,
   category: "games",
   usage: "/operator <attacker/defender>",
+  usageinDM: "yes",
   options: [
     {
       name: "operator_type",

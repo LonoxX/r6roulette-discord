@@ -11,6 +11,7 @@ module.exports = {
   timeout: 3000,
   category: "misc",
   usage: "/changelog",
+  usageinDM: "no",
   run: async (interaction, client) => {
     try {
       const changelogEmbed = await getLatestChangelog(interaction, client);

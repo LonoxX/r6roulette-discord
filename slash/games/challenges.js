@@ -7,9 +7,12 @@ const pawlog = require("../../utility/logs.js");
 module.exports = {
   name: "getchallenge",
   description: "Generates a random challenge",
+  integration_types: [1],
+  contexts: [0, 2],
   timeout: 3000,
   category: "games",
   usage: "/getchallenge",
+  usageinDM: "yes",
   run: async (interaction, client) => {
     try {
       const challengeResponse = await fetchChallengeData();

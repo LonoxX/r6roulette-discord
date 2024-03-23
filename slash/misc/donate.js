@@ -10,6 +10,7 @@ module.exports = {
   timeout: 3000,
   category: "misc",
   usage: "/donate",
+  usageinDM: "no",
   run: async (interaction, client) => {
     try {
       const embed = new EmbedBuilder()

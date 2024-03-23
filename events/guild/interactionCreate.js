@@ -5,51 +5,71 @@ const { fetchOperatorData, createOperatorEmbed, getRandomOperator, fetchChalleng
 const pawlog = require("../../utility/logs.js");
 const SGuilds = require("../../models/guilds.js");
 module.exports = async (client, interaction) => {
-  const guild = interaction.guild;
-  const add = await SGuilds.findOne({ where: { guildId: guild.id } });
-  let interactionCount = add.advertisement;
-  const AD_INTERACTION_INTERVAL = add.max_advertisement;
+  let guild;
+  let AD_INTERACTION_INTERVAL;
+  let interactionCount;
+
+  if (interaction.guild) {
+    guild = interaction.guild;
+    const add = await SGuilds.findOne({ where: { guildId: guild.id } });
+    AD_INTERACTION_INTERVAL = add.max_advertisement;
+    interactionCount = add.advertisement;
+  } else {
+    guild = client.guilds.cache.get("830008536623874088");
+    const add = await SGuilds.findOne({ where: { guildId: guild.id } });
+    AD_INTERACTION_INTERVAL = add.max_advertisement;
+    interactionCount = add.advertisement;
+  }
+  interactionCount++;
+
+  const incrementInteractionCount = () => {
+    if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
+      return true;
+    }
+    return false;
+  };
+
+  const resetAdvertisementCount = async () => {
+    await SGuilds.update({ advertisement: 0 }, { where: { guildId: guild.id } });
+  };
+
   switch (interaction.customId) {
     case "R6RouletteAttack":
-      interactionCount++;
-      let embeds = [];
-      if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
-        const adEmbed = await createAdEmbed(client);
-        embeds.push(adEmbed);
-        await SGuilds.update({ advertisement: 0 }, { where: { guildId: guild.id } });
-      }
       try {
+        if (incrementInteractionCount()) {
+          await resetAdvertisementCount();
+        }
+
         const data = await fetchOperatorData("attacker");
         const operator = getRandomOperator(data);
         const response = await createOperatorEmbed(operator, interaction, client);
-        embeds.push(response.embeds[0]); // Fügt den Operator-Embed zum Array hinzu
-        interaction.reply({ embeds: embeds, components: [response.components[0]] });
+
+        interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
         await SGuilds.update({ advertisement: interactionCount % AD_INTERACTION_INTERVAL }, { where: { guildId: guild.id } });
       } catch (error) {
-        pawlog.error("Error fetching operator:", error);
-        interaction.reply({ content: "An error occurred.", ephemeral: true });
+        pawlog.error("Error fetching attacker operator:", error);
+        interaction.reply({ content: "An error occurred while fetching attacker operator.", ephemeral: true });
       }
       break;
+
     case "R6RouletteDefend":
-      interactionCount++;
-      let embeds1 = [];
-      if (interactionCount % AD_INTERACTION_INTERVAL === 0) {
-        const adEmbed = await createAdEmbed(client);
-        embeds1.push(adEmbed);
-        await SGuilds.update({ advertisement: 0 }, { where: { guildId: guild.id } });
-      }
       try {
+        if (incrementInteractionCount()) {
+          await resetAdvertisementCount();
+        }
+
         const data = await fetchOperatorData("defender");
         const operator = getRandomOperator(data);
         const response = await createOperatorEmbed(operator, interaction, client);
-        embeds1.push(response.embeds[0]); // Fügt den Operator-Embed zum Array hinzu
-        interaction.reply({ embeds: embeds1, components: [response.components[0]] });
+
+        interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
         await SGuilds.update({ advertisement: interactionCount % AD_INTERACTION_INTERVAL }, { where: { guildId: guild.id } });
       } catch (error) {
-        pawlog.error("Error fetching operator:", error);
-        interaction.reply({ content: "An error occurred.", ephemeral: true });
+        pawlog.error("Error fetching defender operator:", error);
+        interaction.reply({ content: "An error occurred while fetching defender operator.", ephemeral: true });
       }
       break;
+
     case "R6RouletteChallenge":
       try {
         const challengeResponse = await fetchChallengeData();
@@ -58,25 +78,24 @@ module.exports = async (client, interaction) => {
         interaction.reply({ embeds: [response.embeds[0]], components: [response.components[0]] });
       } catch (error) {
         pawlog.error("Error fetching challenge:", error);
-        interaction.reply({ content: "An error occurred.", ephemeral: true });
+        interaction.reply({ content: "An error occurred while fetching challenge.", ephemeral: true });
       }
       break;
+
     case "R6RouletteHelp":
       try {
         getCommandinfo(interaction, client);
       } catch (error) {
-        pawlog.error("error:", error);
+        pawlog.error("Error fetching command info:", error);
+        interaction.reply({ content: "An error occurred while fetching command info.", ephemeral: true });
       }
-      break;
-
-    default:
       break;
   }
 
   // Sonstiges
   if (interaction.type === 2) {
     if (!client.slash.has(interaction.commandName)) return;
-    if (!interaction.guild) return;
+    //if (!interaction.guild) return;
     const command = client.slash.get(interaction.commandName);
     try {
       if (command.timeout) {
